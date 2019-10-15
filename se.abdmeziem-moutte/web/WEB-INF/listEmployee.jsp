@@ -18,6 +18,11 @@
         <% 
            ArrayList<Employee> listEmployees = (ArrayList<Employee>) request.getAttribute("klistEmployees");
            pageContext.setAttribute("listEmployees", listEmployees);
+           if(listEmployees.size() == 0) {
+               %>
+               <div class="alert alert-danger">The company are no employee</div>
+               <%
+           }
          
         %>
     
@@ -39,7 +44,7 @@
         <tbody>
         <c:forEach var="employee" items="${listEmployees}">
             <tr>
-                <td><input type="radio" name="employeeDetails" id="idEmployee" value="<c:out value="${employee.name}"> </c:out>" checked></td>
+                <td><input type="radio" name="employeeDetails" id="ids" value="<c:out value="${employee.id}"> </c:out>" checked></td>
                 <td> <c:out value="${employee.name}"/></td>
                 <td> <c:out value="${employee.firstname}"/></td>
                 <td> <c:out value="${employee.telHome}"/></td>
@@ -54,10 +59,10 @@
         </tbody>
     </table>
         
-         <form  name='myform' action="">
-            <button type="submit" name="delete"> Delete</button>
-            <button type="submit" name="details" value='ok'> Details</button>
-            <button type="submit" name="add"> Add</button>
+         <form  name='myform' action="ControllerListEmployee">
+            <button type="submit" name="delete" class="btn btn-danger"> Delete</button>
+            <button type="submit" name="details" value='ok' class="btn btn-info"> Details</button>
+            <button type="submit" name="add" class="btn btn-primary"> Add</button>
             
         </form>
         

@@ -31,19 +31,18 @@ public class ControllerListEmployee extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControllerListEmployee</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControllerListEmployee at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if(request.getParameter("details") != null)
+        {
+            String[] ids = request.getParameterValues("ids");
+            String id = "";
+            if(ids.length == 1)
+                id = ids[0];
+            // requete 
+            
+       
+            
         }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
