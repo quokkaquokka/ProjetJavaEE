@@ -1,6 +1,6 @@
 <%-- 
-    Document   : home
-    Created on : 15 oct. 2019, 09:34:33
+    Document   : detailsEmployee
+    Created on : 15 oct. 2019, 11:20:12
     Author     : QuokkaKoala
 --%>
 
@@ -13,6 +13,5 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-         
     </body>
 </html>
