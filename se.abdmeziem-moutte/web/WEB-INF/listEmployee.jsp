@@ -18,7 +18,7 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <title>JSP Page</title>
     </head>
-    <body style="width:500px;">
+    <body>
         <% 
            ArrayList<Employee> listEmployees = (ArrayList<Employee>) request.getAttribute("klistEmployees");
            pageContext.setAttribute("listEmployees", listEmployees);
@@ -65,6 +65,7 @@
 				</tbody>
 			</table>
 			
+			<div class="ml-2">
 			<% if(role.equals("admin") ) { %>
 				<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
 			<% } %>
@@ -72,6 +73,7 @@
 			<% if(role.equals("admin") ) { %>
             <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
 			<% } %>
+			</div>
         </form>
         
 		<!-- delete modal -->
