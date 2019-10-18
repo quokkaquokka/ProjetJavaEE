@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import se.abdmeziem.moutte.Employee;
 import se.abdmeziem.moutte.model.DBActions;
 import static se.abdmeziem.moutte.utils.Constantes.*;
@@ -22,6 +23,8 @@ import static se.abdmeziem.moutte.utils.Constantes.*;
  * @author Camille Moutte
  */
 public class Controller extends HttpServlet {
+	private HttpSession session;
+	
     private InputStream input;
     private String dbUrl = "";
     private String dbPwd = "";
@@ -57,6 +60,8 @@ public class Controller extends HttpServlet {
         if(request.getParameter("action") == null) {
              request.getRequestDispatcher(JSP_HOME_PAGE).forward(request, response);
         } else {
+			session = request.getSession();
+			
 			DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
 
 			String loginInput = request.getParameter("loginField");
@@ -90,8 +95,7 @@ public class Controller extends HttpServlet {
             if (errKey.isEmpty()) {
                 ArrayList<Employee> listEmployees = dba.getEmployees();
                 request.setAttribute("klistEmployees", listEmployees);
-				//!! à passer en session
-                request.setAttribute("krole", role);
+                session.setAttribute("krole", role);
                 request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
             } else {
                 request.setAttribute("errKey", errKey);

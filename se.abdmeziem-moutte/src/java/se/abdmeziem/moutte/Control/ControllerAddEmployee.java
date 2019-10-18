@@ -57,8 +57,6 @@ public class ControllerAddEmployee extends HttpServlet {
 		
 		ArrayList<Employee> listEmployees = dba.getEmployees();
 		request.setAttribute("klistEmployees", listEmployees);
-		//!! à passer en session
-		request.setAttribute("krole", "admin");
 		request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
 	}
 

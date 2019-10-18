@@ -28,7 +28,7 @@
                <%
            }
 		   
-		   String role = (String) request.getAttribute("krole");
+		   String role = (String) session.getAttribute("krole");
         %>
 		
 		<form  name='myform' action="ControllerListEmployee">
