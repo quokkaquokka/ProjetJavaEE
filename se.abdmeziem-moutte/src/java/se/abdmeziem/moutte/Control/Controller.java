@@ -56,7 +56,7 @@ public class Controller extends HttpServlet {
         dbPwd= prop.getProperty("dbPwd");
         
         
-
+		// if this is the first time we come here redirect to login page
         if(request.getParameter("action") == null) {
              request.getRequestDispatcher(JSP_HOME_PAGE).forward(request, response);
         } else {
@@ -73,6 +73,7 @@ public class Controller extends HttpServlet {
 			adminName = prop.getProperty("adminName");
 			adminPwd = prop.getProperty("adminPwd");
 
+			// check login
 			String role = "user";
 			if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
 				role = "user";
@@ -89,9 +90,7 @@ public class Controller extends HttpServlet {
 			if(loginInput.isEmpty() || pwdInput.isEmpty())
 				errKey = ERR_EMPTY_FIELDS;
                 
-
-
-            
+			// then redirect to the correct page with the correct rights
             if (errKey.isEmpty()) {
                 ArrayList<Employee> listEmployees = dba.getEmployees();
                 request.setAttribute("klistEmployees", listEmployees);
