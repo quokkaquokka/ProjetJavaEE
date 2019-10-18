@@ -27,7 +27,8 @@
                <div class="alert alert-danger">The company are no employee</div>
                <%
            }
-         
+		   
+		   String role = (String) request.getAttribute("krole");
         %>
 		
 		<form  name='myform' action="ControllerListEmployee">
@@ -63,10 +64,14 @@
 				</c:forEach>
 				</tbody>
 			</table>
-        
-            <button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-            <input type="submit" name="details" value='ok' class="btn btn-info" value="Details">
+			
+			<% if(role.equals("admin") ) { %>
+				<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+			<% } %>
+            <input type="submit" name="details" class="btn btn-info" value="Details">
+			<% if(role.equals("admin") ) { %>
             <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
+			<% } %>
         </form>
         
 		<!-- delete modal -->

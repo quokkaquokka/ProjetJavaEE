@@ -62,30 +62,32 @@ public class Controller extends HttpServlet {
         if(request.getParameter("action") == null) {
              request.getRequestDispatcher(JSP_HOME_PAGE).forward(request, response);
         } else {
-            DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
+			DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
 
-            String loginInput = request.getParameter("loginField");
-            String pwdInput = request.getParameter("pwdField");
-            
-            userName = prop.getProperty("userName");
-            userPwd = prop.getProperty("userPwd");
-        
-            adminName = prop.getProperty("adminName");
-            adminPwd = prop.getProperty("adminPwd");
-            
-            
-            if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
-                
-            }
-            else
-            {
-              if(loginInput.equals(adminName) && pwdInput.equals(adminPwd))
-                 errKey = "";
-                else
-                     errKey = ERR_CONNECTION;
-            }
-            if(loginInput.isEmpty() || pwdInput.isEmpty())
-                errKey = ERR_EMPTY_FIELDS;
+			String loginInput = request.getParameter("loginField");
+			String pwdInput = request.getParameter("pwdField");
+
+			userName = prop.getProperty("userName");
+			userPwd = prop.getProperty("userPwd");
+
+			adminName = prop.getProperty("adminName");
+			adminPwd = prop.getProperty("adminPwd");
+
+			String role = "user";
+			if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
+				role = "user";
+			}
+			else
+			{
+				if(loginInput.equals(adminName) && pwdInput.equals(adminPwd)) {
+					role = "admin";
+					errKey = "";
+				}
+				else
+					errKey = ERR_CONNECTION;
+			}
+			if(loginInput.isEmpty() || pwdInput.isEmpty())
+				errKey = ERR_EMPTY_FIELDS;
                 
 
 
@@ -93,6 +95,7 @@ public class Controller extends HttpServlet {
             if (errKey.isEmpty()) {
                 ArrayList<Employee> listEmployees = dba.getEmployees();
                 request.setAttribute("klistEmployees", listEmployees);
+                request.setAttribute("krole", role);
                 request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
             } else {
                 request.setAttribute("errKey", errKey);
