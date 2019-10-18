@@ -11,18 +11,20 @@ package se.abdmeziem.moutte.model;
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import se.abdmeziem.moutte.Employee;
-import static se.abdmeziem.moutte.utils.Constantes.SEL_EMPLOYEE;
+import static se.abdmeziem.moutte.utils.Constantes.*;
 
 public class DBActions {
 
     boolean test = false;
     Connection conn;
     Statement stmt;
+    PreparedStatement prepStmt;
     ResultSet rs;
     Employee employee;
     ArrayList<Employee> listEmployees = null;
@@ -42,7 +44,15 @@ public class DBActions {
             System.out.println(sqle.getMessage());
         }
         return stmt;
-
+    }
+	
+	public PreparedStatement getPreparedStatement(String sql) {
+        try {
+            prepStmt = conn.prepareStatement(sql);
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return prepStmt;
     }
 
     public ResultSet getResultSet(String sql) {
@@ -79,4 +89,25 @@ public class DBActions {
         }
         return listEmployees;
     }
+	
+	public void addEmployee(String name, String firstname, String homePhone,
+			String mobPhone, String proPhone, String address, String postcode,
+			String city, String email) {
+		prepStmt = getPreparedStatement(INS_EMPLOYEE);
+		
+		try {
+			prepStmt.setString(1, name);
+			prepStmt.setString(2, firstname);
+			prepStmt.setString(3, homePhone);
+			prepStmt.setString(4, mobPhone);
+			prepStmt.setString(5, proPhone);
+			prepStmt.setString(6, address);
+			prepStmt.setString(7, postcode);
+			prepStmt.setString(8, city);
+			prepStmt.setString(9, email);
+            prepStmt.executeUpdate();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+	}
 }

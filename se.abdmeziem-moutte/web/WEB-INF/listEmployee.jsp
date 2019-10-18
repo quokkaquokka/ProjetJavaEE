@@ -41,7 +41,7 @@
 						<th>Phone Home</th>
 						<th>Phone Mobile</th>
 						<th>Phone Pro</th>
-						<th>Adress</th>
+						<th>Address</th>
 						<th>Postal code</th>
 						<th>City</th>
 						<th>email</th>
@@ -104,25 +104,23 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
-						<form>
-							Name: <input type='text' name='nameField' class="form-control">
-							Firstname: <input type='text' name='firstnameField' class="form-control">
-							Home Phone: <input type='text' name='homePhoneField' class="form-control">
-							Mobile Phone: <input type='text' name='mobPhoneField' class="form-control">
-							Professional Phone: <input type='text' name='proPhoneField' class="form-control">
-							Address: <input type='text' name='addressField' class="form-control">
-							Postcode: <input type='text' name='postcodeField' class="form-control">
-							City: <input type='text' name='cityField' class="form-control">
-							Email: <input type='text' name='emailField' class="form-control">
-						</form>
-					</div>
-					<div class="modal-footer">
-						<form>
+					<form action="ControllerAddEmployee" method="post">
+						<div class="modal-body">
+							Name: <input type='text' name='nameField' class="form-control" required>
+							Firstname: <input type='text' name='firstnameField' class="form-control" required>
+							Home Phone: <input type='text' name='homePhoneField' class="form-control" required>
+							Mobile Phone: <input type='text' name='mobPhoneField' class="form-control" required>
+							Professional Phone: <input type='text' name='proPhoneField' class="form-control" required>
+							Address: <input type='text' name='addressField' class="form-control" required>
+							Postcode: <input type='text' name='postcodeField' class="form-control" required>
+							City: <input type='text' name='cityField' class="form-control" required>
+							Email: <input type='text' name='emailField' class="form-control" required>
+						</div>
+						<div class="modal-footer">
 							<input type="submit" class="btn btn-primary" value="Save">
-						</form>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					</div>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

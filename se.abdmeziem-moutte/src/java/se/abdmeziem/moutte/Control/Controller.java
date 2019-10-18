@@ -95,6 +95,7 @@ public class Controller extends HttpServlet {
             if (errKey.isEmpty()) {
                 ArrayList<Employee> listEmployees = dba.getEmployees();
                 request.setAttribute("klistEmployees", listEmployees);
+				//!! à passer en session
                 request.setAttribute("krole", role);
                 request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
             } else {
