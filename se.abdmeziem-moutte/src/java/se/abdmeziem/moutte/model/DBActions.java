@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.abdmeziem.moutte.model;
 
 /**
@@ -37,6 +32,10 @@ public class DBActions {
         }
     }
 
+	/**
+	 * get a Statement to do SELECT on the database
+	 * @return a Statement to read the database
+	 */
     public Statement getStatement() {
         try {
             stmt = conn.createStatement();
@@ -46,6 +45,11 @@ public class DBActions {
         return stmt;
     }
 	
+	/**
+	 * get a PreparedStatement to do INSERT, UPDATE or DELETE on the database
+	 * @param sql the sql query to prepare
+	 * @return a PreparedStatement to update the database
+	 */
 	public PreparedStatement getPreparedStatement(String sql) {
         try {
             prepStmt = conn.prepareStatement(sql);
@@ -55,6 +59,11 @@ public class DBActions {
         return prepStmt;
     }
 
+	/**
+	 * get the ResultSet from an sql query
+	 * @param sql query to execute
+	 * @return the ResultSet corresponding to the result of the query
+	 */
     public ResultSet getResultSet(String sql) {
         stmt = getStatement();
         try {
@@ -66,6 +75,10 @@ public class DBActions {
 
     }
     
+	/**
+	 * get all the Employees of the database
+	 * @return an ArrayList of Employee corresponding to the employees list
+	 */
     public ArrayList<Employee> getEmployees() {
         listEmployees = new ArrayList<>();
         rs = getResultSet(SEL_EMPLOYEE);
@@ -90,6 +103,18 @@ public class DBActions {
         return listEmployees;
     }
 	
+	/**
+	 * Add an employee in the database with the following parameters
+	 * @param name
+	 * @param firstname
+	 * @param homePhone
+	 * @param mobPhone
+	 * @param proPhone
+	 * @param address
+	 * @param postcode
+	 * @param city
+	 * @param email 
+	 */
 	public void addEmployee(String name, String firstname, String homePhone,
 			String mobPhone, String proPhone, String address, String postcode,
 			String city, String email) {
