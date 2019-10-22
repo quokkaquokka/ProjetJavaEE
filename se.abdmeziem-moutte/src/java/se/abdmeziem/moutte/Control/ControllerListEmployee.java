@@ -7,22 +7,22 @@ package se.abdmeziem.moutte.Control;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import se.abdmeziem.moutte.Employee;
 import se.abdmeziem.moutte.model.DBActions;
-import static se.abdmeziem.moutte.utils.Constantes.JSP_DETAIL_EMPLOYEE_PAGE;
+import static se.abdmeziem.moutte.utils.Constantes.*;
 
 /**
  *
  * @author QuokkaKoala
  */
-@WebServlet(name = "ControllerListEmployee", urlPatterns = {"/ControllerListEmployee"})
+
 public class ControllerListEmployee extends HttpServlet {
     private InputStream input;
     private String dbUrl = "";
@@ -40,8 +40,20 @@ public class ControllerListEmployee extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-        if(request.getParameter("details") != null)
-        {
+		
+		Properties prop = new Properties();
+		input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
+		prop.load(input);
+		dbUrl= prop.getProperty("dbUrl");
+		dbLogin= prop.getProperty("dbUser");
+		dbPwd= prop.getProperty("dbPwd");
+
+		DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
+
+		String id = request.getParameter("ids");
+		
+		// to get the details of the selected employee
+        if(request.getParameter("details") != null) {
             String[] ids = request.getParameterValues("ids");
             HttpSession session=request.getSession();  
             String role = (String) session.getAttribute("krole");  
@@ -49,28 +61,25 @@ public class ControllerListEmployee extends HttpServlet {
             System.out.println("Role " + role);
             
             
-            String id = "";
+            id = "";
             if(ids != null){
-                if(ids.length == 1)
-                    id = ids[0];
-                Properties prop = new Properties();
-                input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
-                prop.load(input);
-                dbUrl= prop.getProperty("dbUrl");
-                dbLogin= prop.getProperty("dbUser");
-                dbPwd= prop.getProperty("dbPwd");
-		
-		DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
+                if(ids.length == 1) id = ids[0];
                 Employee empl = dba.getEmployee(id);
                 request.setAttribute("kEmployee", empl);
                 request.getRequestDispatcher(JSP_DETAIL_EMPLOYEE_PAGE).forward(request, response);
-                
             }
             
-            
-            // requete 
+            // requete
 
         }
+		// to delete the selected employee
+		else if(request.getParameter("delete") != null) {
+			dba.deleteEmployee(id);
+
+			ArrayList<Employee> listEmployees = dba.getEmployees();
+			request.setAttribute("klistEmployees", listEmployees);
+			request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
+		}
        
     }
 

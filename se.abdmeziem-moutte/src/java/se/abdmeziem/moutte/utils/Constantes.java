@@ -14,6 +14,8 @@ public class Constantes {
     public static final String SEL_EMPLOYEE = "SELECT * from EMPLOYEES WHERE ID = ";
     public static final String INS_EMPLOYEE = "INSERT INTO EMPLOYEES (NAME,FIRSTNAME,TELHOME,TELMOB,TELPRO,ADRESS,POSTALCODE,CITY,EMAIL) VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String UPD_EMPLOYEE = "UPDATE EMPLOYEES SET NAME = ?, FIRSTNAME = ?, TELHOME = ?, TELMOB = ?, TELPRO = ?, ADRESS = ?, POSTALCODE = ?, CITY = ?, EMAIL = ? WHERE ID = ?";
+	public static final String DEL_EMPLOYEE = "DELETE from EMPLOYEES WHERE ID=?";
+	
     public static final String ERR_EMPTY_FIELDS = "You must enter values in both fields";
     public static final String ERR_CONNECTION = "Connection failed! Verify your login/password and try again.";
     

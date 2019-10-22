@@ -74,7 +74,7 @@
                             <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
 			<% } %>
 			</div>
-        </form>
+        
         
 		<!-- delete modal -->
 		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
@@ -87,14 +87,14 @@
 						</button>
 					</div>
 					<div class="modal-footer">
-						<form>
-							<input type="submit" class="btn btn-danger" value="Confirm">
-						</form>
+						<input type="submit" name="delete" class="btn btn-danger" value="Confirm">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		</form>
 		
 		<!-- add modal -->
 		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">

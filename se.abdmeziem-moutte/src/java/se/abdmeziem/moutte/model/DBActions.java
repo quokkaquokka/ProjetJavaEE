@@ -178,4 +178,15 @@ public class DBActions {
             System.out.println(sqle.getMessage());
         }
 	}
+		
+	public void deleteEmployee(String id) {
+		prepStmt = getPreparedStatement(DEL_EMPLOYEE);
+
+		try {
+			prepStmt.setString(1, id);
+			prepStmt.executeUpdate();
+		} catch (SQLException sqle) {
+			System.out.println(sqle.getMessage());
+		}
+	}
 }
