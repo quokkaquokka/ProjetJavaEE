@@ -19,7 +19,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <div class="card w-25 mx-auto mt-5">
+         <div class="card mx-auto mt-5" style="max-width: 500px;">
             <div class="card-header">
                  Login
             </div>
