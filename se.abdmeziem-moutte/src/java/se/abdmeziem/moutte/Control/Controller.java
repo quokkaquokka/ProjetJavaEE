@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.abdmeziem.moutte.Control;
 
 /**
@@ -17,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import se.abdmeziem.moutte.Employee;
 import se.abdmeziem.moutte.model.DBActions;
 import static se.abdmeziem.moutte.utils.Constantes.*;
@@ -27,6 +23,8 @@ import static se.abdmeziem.moutte.utils.Constantes.*;
  * @author Camille Moutte
  */
 public class Controller extends HttpServlet {
+	private HttpSession session;
+	
     private InputStream input;
     private String dbUrl = "";
     private String dbPwd = "";
@@ -58,41 +56,45 @@ public class Controller extends HttpServlet {
         dbPwd= prop.getProperty("dbPwd");
         
         
-
+		// if this is the first time we come here redirect to login page
         if(request.getParameter("action") == null) {
              request.getRequestDispatcher(JSP_HOME_PAGE).forward(request, response);
         } else {
-            DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
+			session = request.getSession();
+			
+			DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
 
-            String loginInput = request.getParameter("loginField");
-            String pwdInput = request.getParameter("pwdField");
-            
-            userName = prop.getProperty("userName");
-            userPwd = prop.getProperty("userPwd");
-        
-            adminName = prop.getProperty("adminName");
-            adminPwd = prop.getProperty("adminPwd");
-            
-            
-            if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
+			String loginInput = request.getParameter("loginField");
+			String pwdInput = request.getParameter("pwdField");
+
+			userName = prop.getProperty("userName");
+			userPwd = prop.getProperty("userPwd");
+
+			adminName = prop.getProperty("adminName");
+			adminPwd = prop.getProperty("adminPwd");
+
+			// check login
+			String role = "user";
+			if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
+				role = "user";
+			}
+			else
+			{
+				if(loginInput.equals(adminName) && pwdInput.equals(adminPwd)) {
+					role = "admin";
+					errKey = "";
+				}
+				else
+					errKey = ERR_CONNECTION;
+			}
+			if(loginInput.isEmpty() || pwdInput.isEmpty())
+				errKey = ERR_EMPTY_FIELDS;
                 
-            }
-            else
-            {
-              if(loginInput.equals(adminName) && pwdInput.equals(adminPwd))
-                 errKey = "";
-                else
-                     errKey = ERR_CONNECTION;
-            }
-            if(loginInput.isEmpty() || pwdInput.isEmpty())
-                errKey = ERR_EMPTY_FIELDS;
-                
-
-
-            
+			// then redirect to the correct page with the correct rights
             if (errKey.isEmpty()) {
                 ArrayList<Employee> listEmployees = dba.getEmployees();
                 request.setAttribute("klistEmployees", listEmployees);
+                session.setAttribute("krole", role);
                 request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
             } else {
                 request.setAttribute("errKey", errKey);
