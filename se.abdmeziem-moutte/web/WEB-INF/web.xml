@@ -14,6 +14,10 @@
         <servlet-name>ControllerAddEmployee</servlet-name>
         <servlet-class>se.abdmeziem.moutte.Control.ControllerAddEmployee</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ControllerDetailEmployee</servlet-name>
+        <servlet-class>se.abdmeziem.moutte.Control.ControllerDetailEmployee</servlet-class>
+    </servlet>
 	
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
@@ -22,6 +26,10 @@
     <servlet-mapping>
         <servlet-name>ControllerAddEmployee</servlet-name>
         <url-pattern>/ControllerAddEmployee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerDetailEmployee</servlet-name>
+        <url-pattern>/ControllerDetailEmployee</url-pattern>
     </servlet-mapping>
 	
     <session-config>

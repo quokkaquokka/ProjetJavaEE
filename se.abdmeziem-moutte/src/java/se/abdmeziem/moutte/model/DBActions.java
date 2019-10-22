@@ -81,7 +81,7 @@ public class DBActions {
 	 */
     public ArrayList<Employee> getEmployees() {
         listEmployees = new ArrayList<>();
-        rs = getResultSet(SEL_EMPLOYEE);
+        rs = getResultSet(SEL_EMPLOYEES);
         try {
             while (rs.next()) {
                 Employee employeeBean = new Employee();
@@ -102,6 +102,29 @@ public class DBActions {
         }
         return listEmployees;
     }
+    
+    public Employee getEmployee(String id) {
+        Employee employeeBean = new Employee();
+        String sql = SEL_EMPLOYEE + id;
+        rs = getResultSet(sql);
+        try {
+            if(rs.next()) {
+                employeeBean.setId(rs.getInt("ID"));
+                employeeBean.setName(rs.getString("NAME"));
+                employeeBean.setFirstname(rs.getString("FIRSTNAME"));
+                employeeBean.setTelHome(rs.getString("TELHOME"));
+                employeeBean.setTelMob(rs.getString("TELMOB"));
+                employeeBean.setTelPro(rs.getString("TELPRO"));
+                employeeBean.setAdress(rs.getString("ADRESS"));
+                employeeBean.setPostalCode(rs.getString("POSTALCODE"));
+                employeeBean.setCity(rs.getString("CITY"));
+                employeeBean.setEmail(rs.getString("EMAIL"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return employeeBean;
+    }
 	
 	/**
 	 * Add an employee in the database with the following parameters
@@ -119,7 +142,6 @@ public class DBActions {
 			String mobPhone, String proPhone, String address, String postcode,
 			String city, String email) {
 		prepStmt = getPreparedStatement(INS_EMPLOYEE);
-		
 		try {
 			prepStmt.setString(1, name);
 			prepStmt.setString(2, firstname);
@@ -130,6 +152,27 @@ public class DBActions {
 			prepStmt.setString(7, postcode);
 			prepStmt.setString(8, city);
 			prepStmt.setString(9, email);
+            prepStmt.executeUpdate();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+	}
+        
+        public void udapteEmployee(int id, String name, String firstname, String homePhone,
+			String mobPhone, String proPhone, String address, String postcode,
+			String city, String email) {
+		prepStmt = getPreparedStatement(UPD_EMPLOYEE);
+		try {
+			prepStmt.setString(1, name);
+			prepStmt.setString(2, firstname);
+			prepStmt.setString(3, homePhone);
+			prepStmt.setString(4, mobPhone);
+			prepStmt.setString(5, proPhone);
+			prepStmt.setString(6, address);
+			prepStmt.setString(7, postcode);
+			prepStmt.setString(8, city);
+			prepStmt.setString(9, email);
+                        prepStmt.setInt(10, id);
             prepStmt.executeUpdate();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());

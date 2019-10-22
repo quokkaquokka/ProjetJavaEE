@@ -6,11 +6,17 @@
 package se.abdmeziem.moutte.Control;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import se.abdmeziem.moutte.Employee;
+import se.abdmeziem.moutte.model.DBActions;
+import static se.abdmeziem.moutte.utils.Constantes.JSP_DETAIL_EMPLOYEE_PAGE;
 
 /**
  *
@@ -18,6 +24,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ControllerListEmployee", urlPatterns = {"/ControllerListEmployee"})
 public class ControllerListEmployee extends HttpServlet {
+    private InputStream input;
+    private String dbUrl = "";
+    private String dbPwd = "";
+    private String dbLogin = "";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,13 +43,33 @@ public class ControllerListEmployee extends HttpServlet {
         if(request.getParameter("details") != null)
         {
             String[] ids = request.getParameterValues("ids");
+            HttpSession session=request.getSession();  
+            String role = (String) session.getAttribute("krole");  
+
+            System.out.println("Role " + role);
+            
+            
             String id = "";
-            if(ids.length == 1)
-                id = ids[0];
+            if(ids != null){
+                if(ids.length == 1)
+                    id = ids[0];
+                Properties prop = new Properties();
+                input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
+                prop.load(input);
+                dbUrl= prop.getProperty("dbUrl");
+                dbLogin= prop.getProperty("dbUser");
+                dbPwd= prop.getProperty("dbPwd");
+		
+		DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
+                Employee empl = dba.getEmployee(id);
+                request.setAttribute("kEmployee", empl);
+                request.getRequestDispatcher(JSP_DETAIL_EMPLOYEE_PAGE).forward(request, response);
+                
+            }
+            
+            
             // requete 
-            
-       
-            
+
         }
        
     }

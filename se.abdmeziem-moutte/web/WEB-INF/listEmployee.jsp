@@ -28,7 +28,7 @@
                <%
            }
 		   
-		   String role = (String) session.getAttribute("krole");
+		    String role = (String) session.getAttribute("krole");
         %>
 		
 		<form  name='myform' action="ControllerListEmployee">
@@ -50,7 +50,7 @@
 				<tbody>
 				<c:forEach var="employee" items="${listEmployees}">
 					<tr>
-						<td><input type="radio" name="employeeDetails" id="ids" value="<c:out value="${employee.id}"> </c:out>" checked></td>
+						<td><input type="radio" name="ids" id="ids" value="<c:out value="${employee.id}"> </c:out>" checked></td>
 						<td> <c:out value="${employee.name}"/></td>
 						<td> <c:out value="${employee.firstname}"/></td>
 						<td> <c:out value="${employee.telHome}"/></td>
@@ -69,9 +69,9 @@
 			<% if(role.equals("admin") ) { %>
 				<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
 			<% } %>
-            <input type="submit" name="details" class="btn btn-info" value="Details">
+                            <input type="submit" name="details" class="btn btn-info" value="Details">
 			<% if(role.equals("admin") ) { %>
-            <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
+                            <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
 			<% } %>
 			</div>
         </form>
