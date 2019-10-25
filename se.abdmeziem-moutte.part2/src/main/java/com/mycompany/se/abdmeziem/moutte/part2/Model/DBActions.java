@@ -1,15 +1,22 @@
-package se.abdmeziem.moutte.model;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.se.abdmeziem.moutte.part2.Model;
 
 /**
  *
- * @author Camille Moutte
+ * @author QuokkaKoala
  */
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DBActions {
 

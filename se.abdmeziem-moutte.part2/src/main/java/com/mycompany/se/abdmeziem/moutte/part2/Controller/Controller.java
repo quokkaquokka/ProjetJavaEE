@@ -1,29 +1,32 @@
-package se.abdmeziem.moutte.Control;
-
-/**
- *
- * @author QuokkaKoala
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
+package com.mycompany.se.abdmeziem.moutte.part2.Controller;
+
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee;
+import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeModel;
+import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import se.abdmeziem.moutte.Employee;
-import se.abdmeziem.moutte.model.EmployeeModel;
-import static se.abdmeziem.moutte.utils.Constantes.*;
-
 
 /**
  *
- * @author Camille Moutte
+ * @author QuokkaKoala
  */
+@WebServlet(name = "Controller", urlPatterns = {"/Controller"})
 public class Controller extends HttpServlet {
-	private HttpSession session;
+
+    private HttpSession session;
 	
     private InputStream input;
     
@@ -44,7 +47,6 @@ public class Controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-        
         Properties prop = new Properties();
         input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
         prop.load(input);
@@ -97,7 +99,6 @@ public class Controller extends HttpServlet {
                 
         }
         
-            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -139,6 +140,4 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-
 }
-
