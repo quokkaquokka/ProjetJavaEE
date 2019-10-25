@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import se.abdmeziem.moutte.Employee;
 import se.abdmeziem.moutte.model.DBActions;
+import se.abdmeziem.moutte.model.EmployeeModel;
 import static se.abdmeziem.moutte.utils.Constantes.*;
 
 
@@ -51,9 +52,8 @@ public class Controller extends HttpServlet {
         Properties prop = new Properties();
         input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
         prop.load(input);
-        dbUrl= prop.getProperty("dbUrl");
-        dbLogin= prop.getProperty("dbUser");
-        dbPwd= prop.getProperty("dbPwd");
+        
+        EmployeeModel employeeModel = new EmployeeModel(prop);
         
         
 		// if this is the first time we come here redirect to login page
@@ -61,8 +61,6 @@ public class Controller extends HttpServlet {
              request.getRequestDispatcher(JSP_HOME_PAGE).forward(request, response);
         } else {
 			session = request.getSession();
-			
-			DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
 
 			String loginInput = request.getParameter("loginField");
 			String pwdInput = request.getParameter("pwdField");
@@ -92,7 +90,7 @@ public class Controller extends HttpServlet {
                 
 			// then redirect to the correct page with the correct rights
             if (errKey.isEmpty()) {
-                ArrayList<Employee> listEmployees = dba.getEmployees();
+                ArrayList<Employee> listEmployees = employeeModel.getEmployees();
                 request.setAttribute("klistEmployees", listEmployees);
                 session.setAttribute("krole", role);
                 request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);

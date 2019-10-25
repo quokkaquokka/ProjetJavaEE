@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import se.abdmeziem.moutte.Employee;
 import se.abdmeziem.moutte.model.DBActions;
+import se.abdmeziem.moutte.model.EmployeeModel;
 import static se.abdmeziem.moutte.utils.Constantes.*;
 
 /**
@@ -25,9 +26,7 @@ import static se.abdmeziem.moutte.utils.Constantes.*;
 
 public class ControllerListEmployee extends HttpServlet {
     private InputStream input;
-    private String dbUrl = "";
-    private String dbPwd = "";
-    private String dbLogin = "";
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,11 +43,7 @@ public class ControllerListEmployee extends HttpServlet {
 		Properties prop = new Properties();
 		input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
 		prop.load(input);
-		dbUrl= prop.getProperty("dbUrl");
-		dbLogin= prop.getProperty("dbUser");
-		dbPwd= prop.getProperty("dbPwd");
-
-		DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
+		EmployeeModel employeeModel = new EmployeeModel(prop);
 
 		String id = request.getParameter("ids");
 		
@@ -64,7 +59,7 @@ public class ControllerListEmployee extends HttpServlet {
             id = "";
             if(ids != null){
                 if(ids.length == 1) id = ids[0];
-                Employee empl = dba.getEmployee(id);
+                Employee empl = employeeModel.getEmployee(id);
                 request.setAttribute("kEmployee", empl);
                 request.getRequestDispatcher(JSP_DETAIL_EMPLOYEE_PAGE).forward(request, response);
             }
@@ -74,9 +69,9 @@ public class ControllerListEmployee extends HttpServlet {
         }
 		// to delete the selected employee
 		else if(request.getParameter("delete") != null) {
-			dba.deleteEmployee(id);
+			employeeModel.deleteEmployee(id);
 
-			ArrayList<Employee> listEmployees = dba.getEmployees();
+			ArrayList<Employee> listEmployees = employeeModel.getEmployees();
 			request.setAttribute("klistEmployees", listEmployees);
 			request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
 		}

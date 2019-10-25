@@ -49,15 +49,15 @@
                     <tbody>
                          <tr>
                             <td>ID</td>
-                             <td><input type="text" name="id" value="<c:out value="${employee.id}" />" class="form-control" readonly/></td>
+                             <td><input type="text" name="id" value="<c:out value="${employee.id}" />" class="form-control" readonly /></td>
                         </tr>
                         <tr>
-                            <td>Name</td>
-                             <td><input type="text" name="name" value="<c:out value="${employee.name}" />" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td>Name *</td>
+                             <td><input type="text" name="name" value="<c:out value="${employee.name}" />" class="form-control" <c:out value="${isAdmin}"/> required/></td>
                         </tr>
                         <tr>
-                            <td>Firstname</td>
-                            <td><input type="text" name="firstname" value="<c:out value="${employee.firstname}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td>Firstname *</td>
+                            <td><input type="text" name="firstname" value="<c:out value="${employee.firstname}"/>" class="form-control" <c:out value="${isAdmin}"/> required/></td>
                             
                         </tr>
                         <tr>
@@ -85,8 +85,8 @@
                             <td><input type="text" name="city" value="<c:out value="${employee.city}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
                         </tr>
                         <tr>
-                            <td>email</td>
-                            <td><input type="text" name="email" value="<c:out value="${employee.email}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td>email *</td>
+                            <td><input type="email" name="email" value="<c:out value="${employee.email}"/>" class="form-control" <c:out value="${isAdmin}"/> required/></td>
                         </tr>
                 </tbody>
                </table>

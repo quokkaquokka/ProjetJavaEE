@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import se.abdmeziem.moutte.Employee;
 import se.abdmeziem.moutte.model.DBActions;
+import se.abdmeziem.moutte.model.EmployeeModel;
 import static se.abdmeziem.moutte.utils.Constantes.JSP_LIST_EMPLOYEE_PAGE;
 
 /**
@@ -26,9 +27,6 @@ import static se.abdmeziem.moutte.utils.Constantes.JSP_LIST_EMPLOYEE_PAGE;
 @WebServlet(name = "ControllerDetailEmployee", urlPatterns = {"/ControllerDetailEmployee"})
 public class ControllerDetailEmployee extends HttpServlet {
     private InputStream input;
-    private String dbUrl = "";
-    private String dbPwd = "";
-    private String dbLogin = "";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,14 +56,12 @@ public class ControllerDetailEmployee extends HttpServlet {
             Properties prop = new Properties();
             input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
             prop.load(input);
-            dbUrl = prop.getProperty("dbUrl");
-            dbLogin = prop.getProperty("dbUser");
-            dbPwd = prop.getProperty("dbPwd");
-		
-            DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
-            dba.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
+ 
+            EmployeeModel employeeModel = new EmployeeModel(prop);
             
-            ArrayList<Employee> listEmployees = dba.getEmployees();
+            employeeModel.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
+            
+            ArrayList<Employee> listEmployees = employeeModel.getEmployees();
             request.setAttribute("klistEmployees", listEmployees);
             request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
          }

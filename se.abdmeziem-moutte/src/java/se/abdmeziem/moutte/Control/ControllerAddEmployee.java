@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import se.abdmeziem.moutte.Employee;
 import se.abdmeziem.moutte.model.DBActions;
+import se.abdmeziem.moutte.model.EmployeeModel;
 import static se.abdmeziem.moutte.utils.Constantes.*;
 
 /**
@@ -18,10 +19,7 @@ import static se.abdmeziem.moutte.utils.Constantes.*;
  */
 public class ControllerAddEmployee extends HttpServlet {
 	
-	private InputStream input;
-    private String dbUrl = "";
-    private String dbPwd = "";
-    private String dbLogin = "";
+    private InputStream input;
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,15 +45,12 @@ public class ControllerAddEmployee extends HttpServlet {
 		Properties prop = new Properties();
         input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
         prop.load(input);
-        dbUrl= prop.getProperty("dbUrl");
-        dbLogin= prop.getProperty("dbUser");
-        dbPwd= prop.getProperty("dbPwd");
+        
+        EmployeeModel employeeModel = new EmployeeModel(prop);
 		
-		DBActions dba = new DBActions(dbUrl, dbLogin, dbPwd);
+		employeeModel.addEmployee(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
 		
-		dba.addEmployee(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
-		
-		ArrayList<Employee> listEmployees = dba.getEmployees();
+		ArrayList<Employee> listEmployees = employeeModel.getEmployees();
 		request.setAttribute("klistEmployees", listEmployees);
 		request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
 	}
