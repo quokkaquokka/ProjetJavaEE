@@ -4,13 +4,14 @@
     Author     : QuokkaKoala
 --%>
 
-<%@page import="com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee"%>
+<%@page import="com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://kit.fontawesome.com/a7b762916d.js" crossorigin="anonymous"></script>
 		<!--bootstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -21,7 +22,7 @@
     </head>
     <body>
         <% 
-          Employee empl = (Employee) request.getAttribute("kEmployee");
+          Employees empl = (Employees) request.getAttribute("kEmployee");
            pageContext.setAttribute("employee", empl);
            pageContext.setAttribute("isAdmin", "disabled");
            
@@ -40,6 +41,9 @@
                <%
            }
         %>
+        <form name='loggout' action="ControllerDetailEmployee">
+            <input type='submit' name='logout' value='Logout' class="btn btn-primary">
+        </form>
         <div class="card" style="width: 500px">
             <div class="card-header">
                 <h5 class="card-title">Employee detail</h5>
@@ -63,15 +67,15 @@
                         </tr>
                         <tr>
                             <td>Phone Home</td>
-                            <td><input type="text" name="phonHome" value="<c:out value="${employee.telHome}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="phonHome" value="<c:out value="${employee.telhome}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
                         </tr>
                         <tr>
                             <td>Phone Mobile</td>
-                            <td><input type="text" name="phonMob" value="<c:out value="${employee.telMob}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="phonMob" value="<c:out value="${employee.telmob}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
                         </tr>
                         <tr>
                             <td>Phone Pro</td>
-                            <td><input type="text" name="phonPro" value="<c:out value="${employee.telPro}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="phonPro" value="<c:out value="${employee.telpro}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
                         </tr>
                         <tr>
                             <td>Address</td>
@@ -79,7 +83,7 @@
                         </tr>
                         <tr>
                             <td>Postal code</td>
-                            <td><input type="text" name="postCode" value="<c:out value="${employee.postalCode}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="postCode" value="<c:out value="${employee.postalcode}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
                         </tr>
                         <tr>
                             <td>City</td>
@@ -92,12 +96,10 @@
                 </tbody>
                </table>
                         
-               <%
-                    if(role.equals("admin")) { %>
-                        <input type='submit' name='update' class="btn btn-primary"> <%
-                    }
-                %>
-               
+                            <c:if test="${krole == 'admin'}">
+                                <input type='submit' name='update' class="btn btn-primary">
+                            </c:if>
+                       
                 </form>
             </div>
         </div>

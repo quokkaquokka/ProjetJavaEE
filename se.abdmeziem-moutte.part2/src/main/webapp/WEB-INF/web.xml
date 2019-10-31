@@ -15,7 +15,11 @@
     </servlet>
     <servlet>
         <servlet-name>ControllerAddEmployee</servlet-name>
-        <servlet-class>ControllerAddEmployee</servlet-class>
+        <servlet-class>com.mycompany.se.abdmeziem.moutte.part2.Controller.ControllerAddEmployee</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>ControllerListEmployee</servlet-name>
+        <servlet-class>com.mycompany.se.abdmeziem.moutte.part2.Controller.ControllerListEmployee</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
@@ -28,6 +32,10 @@
     <servlet-mapping>
         <servlet-name>ControllerAddEmployee</servlet-name>
         <url-pattern>/ControllerAddEmployee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerListEmployee</servlet-name>
+        <url-pattern>/ControllerListEmployee</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

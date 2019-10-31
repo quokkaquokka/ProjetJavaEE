@@ -5,8 +5,8 @@
  */
 package com.mycompany.se.abdmeziem.moutte.part2.Controller;
 
-import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee;
-import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeModel;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
+import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeDAO;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.*;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,7 +51,7 @@ public class Controller extends HttpServlet {
         input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
         prop.load(input);
         
-        EmployeeModel employeeModel = new EmployeeModel(prop);
+        EmployeeDAO employeeDAO = new EmployeeDAO(prop);
         
         
 		// if this is the first time we come here redirect to login page
@@ -72,7 +72,7 @@ public class Controller extends HttpServlet {
 			// check login
 			String role = "user";
 			if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
-				role = "user";
+                            role = "user";
 			}
 			else
 			{
@@ -88,7 +88,7 @@ public class Controller extends HttpServlet {
                 
 			// then redirect to the correct page with the correct rights
             if (errKey.isEmpty()) {
-                ArrayList<Employee> listEmployees = employeeModel.getEmployees();
+                ArrayList<Employees> listEmployees = employeeDAO.getEmployees();
                 request.setAttribute("klistEmployees", listEmployees);
                 session.setAttribute("krole", role);
                 request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);

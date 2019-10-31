@@ -9,14 +9,14 @@ package com.mycompany.se.abdmeziem.moutte.part2.Model;
  *
  * @author QuokkaKoala
  */
-import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBActions {
 
@@ -28,9 +28,12 @@ public class DBActions {
 
     public DBActions(String url, String user, String pwd) {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, pwd);
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBActions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

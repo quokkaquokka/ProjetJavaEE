@@ -1,11 +1,15 @@
+package com.mycompany.se.abdmeziem.moutte.part2.Controller;
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeModel;
-import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee;
+import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeDAO;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.JSP_LIST_EMPLOYEE_PAGE;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,14 +51,14 @@ public class ControllerAddEmployee extends HttpServlet {
 		String email     = request.getParameter("emailField");
 		
 		Properties prop = new Properties();
-        input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
-        prop.load(input);
+                input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
+                prop.load(input);
         
-        EmployeeModel employeeModel = new EmployeeModel(prop);
+                EmployeeDAO employeeModel = new EmployeeDAO(prop);
 		
 		employeeModel.addEmployee(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
 		
-		ArrayList<Employee> listEmployees = employeeModel.getEmployees();
+		ArrayList<Employees> listEmployees = employeeModel.getEmployees();
 		request.setAttribute("klistEmployees", listEmployees);
 		request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
 	}

@@ -4,6 +4,7 @@
     Author     : QuokkaKoala
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,9 +26,9 @@
             </div>
              <div class="card-body">
                 <form>
-                    <% if(request.getAttribute("errKey") != null) { %>
-                    <div class="alert alert-danger">${errKey}</div>
-                    <% } %>
+                    <c:if test="${!empty errKey}">
+                        <div class="alert alert-danger">${errKey}</div>
+                    </c:if>
                     
                     Login :<input type='text' name='loginField' class="form-control"><br/>
                     Password :<input type='password' name='pwdField' class="form-control"><br/>

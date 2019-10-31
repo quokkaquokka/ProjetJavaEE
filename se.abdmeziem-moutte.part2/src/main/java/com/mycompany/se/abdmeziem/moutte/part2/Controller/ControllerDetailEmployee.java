@@ -5,8 +5,9 @@
  */
 package com.mycompany.se.abdmeziem.moutte.part2.Controller;
 
-import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee;
-import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeModel;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
+import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeDAO;
+import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.JSP_GOODBYE_PAGE;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.JSP_LIST_EMPLOYEE_PAGE;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,6 +39,13 @@ public class ControllerDetailEmployee extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+        
+        if(request.getParameter("logout") != null){
+             HttpSession session = request.getSession();
+             session.invalidate();;
+             request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
+             return;
+        }
          if(request.getParameter("update") != null){
             String idtt = request.getParameter("id");
   
@@ -55,11 +64,11 @@ public class ControllerDetailEmployee extends HttpServlet {
             input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
             prop.load(input);
  
-            EmployeeModel employeeModel = new EmployeeModel(prop);
+            EmployeeDAO employeeDAO = new EmployeeDAO(prop);
             
-            employeeModel.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
+            employeeDAO.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
             
-            ArrayList<Employee> listEmployees = employeeModel.getEmployees();
+            ArrayList<Employees> listEmployees = employeeDAO.getEmployees();
             request.setAttribute("klistEmployees", listEmployees);
             request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
          }

@@ -5,7 +5,7 @@
  */
 package com.mycompany.se.abdmeziem.moutte.part2.Model;
 
-import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employee;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.DEL_EMPLOYEE;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.INS_EMPLOYEE;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.SEL_EMPLOYEE;
@@ -24,37 +24,37 @@ import java.util.Properties;
  *
  * @author QuokkaKoala
  */
-public class EmployeeModel {
+public class EmployeeDAO {
     Connection conn;
     Statement stmt;
     PreparedStatement prepStmt;
     ResultSet rs;
-    Employee employee;
-    ArrayList<Employee> listEmployees = null;
+    Employees employee;
+    ArrayList<Employees> listEmployees = null;
     DBActions db;
     private InputStream input;
     
-    public EmployeeModel(Properties prop){
+    public EmployeeDAO(Properties prop){
         String url = prop.getProperty("dbUrl");
         String user = prop.getProperty("dbUser");
         String pwd = prop.getProperty("dbPwd");
         db = new DBActions(url, user, pwd);
     }
     
-    public ArrayList<Employee> getEmployees() {
+    public ArrayList<Employees> getEmployees() {
         listEmployees = new ArrayList<>();
         rs = db.getResultSet(SEL_EMPLOYEES);
         try {
             while (rs.next()) {
-                Employee employeeBean = new Employee();
+                Employees employeeBean = new Employees();
                 employeeBean.setId(rs.getInt("ID"));
                 employeeBean.setName(rs.getString("NAME"));
                 employeeBean.setFirstname(rs.getString("FIRSTNAME"));
-                employeeBean.setTelHome(rs.getString("TELHOME"));
-                employeeBean.setTelMob(rs.getString("TELMOB"));
-                employeeBean.setTelPro(rs.getString("TELPRO"));
+                employeeBean.setTelhome(rs.getString("TELHOME"));
+                employeeBean.setTelmob(rs.getString("TELMOB"));
+                employeeBean.setTelhome(rs.getString("TELPRO"));
                 employeeBean.setAdress(rs.getString("ADRESS"));
-                employeeBean.setPostalCode(rs.getString("POSTALCODE"));
+                employeeBean.setPostalcode(rs.getString("POSTALCODE"));
                 employeeBean.setCity(rs.getString("CITY"));
                 employeeBean.setEmail(rs.getString("EMAIL"));
                 listEmployees.add(employeeBean);
@@ -65,8 +65,8 @@ public class EmployeeModel {
         return listEmployees;
     }
     
-    public Employee getEmployee(String id) {
-        Employee employeeBean = new Employee();
+    public Employees getEmployee(String id) {
+        Employees employeeBean = new Employees();
         String sql = SEL_EMPLOYEE + id;
         rs = db.getResultSet(sql);
         try {
@@ -74,11 +74,11 @@ public class EmployeeModel {
                 employeeBean.setId(rs.getInt("ID"));
                 employeeBean.setName(rs.getString("NAME"));
                 employeeBean.setFirstname(rs.getString("FIRSTNAME"));
-                employeeBean.setTelHome(rs.getString("TELHOME"));
-                employeeBean.setTelMob(rs.getString("TELMOB"));
-                employeeBean.setTelPro(rs.getString("TELPRO"));
+               employeeBean.setTelhome(rs.getString("TELHOME"));
+                employeeBean.setTelmob(rs.getString("TELMOB"));
+                employeeBean.setTelhome(rs.getString("TELPRO"));
                 employeeBean.setAdress(rs.getString("ADRESS"));
-                employeeBean.setPostalCode(rs.getString("POSTALCODE"));
+                employeeBean.setPostalcode(rs.getString("POSTALCODE"));
                 employeeBean.setCity(rs.getString("CITY"));
                 employeeBean.setEmail(rs.getString("EMAIL"));
             }
