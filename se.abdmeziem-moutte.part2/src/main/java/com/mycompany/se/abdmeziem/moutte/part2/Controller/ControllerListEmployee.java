@@ -6,12 +6,13 @@
 package com.mycompany.se.abdmeziem.moutte.part2.Controller;
 
 import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
-import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeDAO;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.EmployeesSB;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,11 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ControllerListEmployee", urlPatterns = {"/ControllerListEmployee"})
 public class ControllerListEmployee extends HttpServlet {
-      private InputStream input;
+    
+    @EJB
+    private EmployeesSB employeesSB;
+    
+    private InputStream input;
 
 
     /**
@@ -42,7 +47,6 @@ public class ControllerListEmployee extends HttpServlet {
 		Properties prop = new Properties();
 		input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
 		prop.load(input);
-		EmployeeDAO employeeDAO = new EmployeeDAO(prop);
 
 		String id = request.getParameter("ids");
                 
@@ -56,26 +60,25 @@ public class ControllerListEmployee extends HttpServlet {
 		// to get the details of the selected employee
         if(request.getParameter("details") != null) {
             String[] ids = request.getParameterValues("ids");
-            // HttpSession session = request.getSession();  
-            // String role = (String) session.getAttribute("krole");  
-            
             
             id = "";
             if(ids != null){
                 if(ids.length == 1) id = ids[0];
-                Employees empl = employeeDAO.getEmployee(id);
+                // Employees empl = employeeDAO.getEmployee(id);
+                Employees empl = employeesSB.getEmployee(Integer.parseInt(id));
                 request.setAttribute("kEmployee", empl);
                 request.getRequestDispatcher(JSP_DETAIL_EMPLOYEE_PAGE).forward(request, response);
             }
-            
-            // requete
 
         }
 		// to delete the selected employee
 		else if(request.getParameter("delete") != null) {
-			employeeDAO.deleteEmployee(id);
+                        employeesSB.deleteEmployee(Integer.parseInt(id));
 
-			ArrayList<Employees> listEmployees = employeeDAO.getEmployees();
+                        
+                        ArrayList<Employees> listEmployees = new ArrayList<>();
+                        listEmployees.addAll(employeesSB.getEmployees());
+                
 			request.setAttribute("klistEmployees", listEmployees);
 			request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
 		}

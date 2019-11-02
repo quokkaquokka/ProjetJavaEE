@@ -8,14 +8,15 @@ package com.mycompany.se.abdmeziem.moutte.part2.Controller;
  * and open the template in the editor.
  */
 
-import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeDAO;
 import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.EmployeesSB;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.JSP_LIST_EMPLOYEE_PAGE;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Properties;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ControllerAddEmployee extends HttpServlet {
 
-   private InputStream input;
+    @EJB
+    private EmployeesSB employeesSB;
+    private InputStream input;
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,11 +57,14 @@ public class ControllerAddEmployee extends HttpServlet {
                 input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
                 prop.load(input);
         
-                EmployeeDAO employeeModel = new EmployeeDAO(prop);
+                // EmployeeDAO employeeModel = new EmployeeDAO(prop);
+                
+                employeesSB.addEmployees(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
 		
-		employeeModel.addEmployee(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
+		// employeeModel.addEmployee(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
 		
-		ArrayList<Employees> listEmployees = employeeModel.getEmployees();
+		ArrayList<Employees> listEmployees = new ArrayList<>();
+                listEmployees.addAll(employeesSB.getEmployees());
 		request.setAttribute("klistEmployees", listEmployees);
 		request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
 	}

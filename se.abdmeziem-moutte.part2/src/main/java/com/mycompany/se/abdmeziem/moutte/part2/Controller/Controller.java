@@ -6,12 +6,13 @@
 package com.mycompany.se.abdmeziem.moutte.part2.Controller;
 
 import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
-import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeDAO;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.EmployeesSB;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Controller", urlPatterns = {"/Controller"})
 public class Controller extends HttpServlet {
+    @EJB
+    private EmployeesSB employeesSB;
 
     private HttpSession session;
 	
@@ -51,44 +54,45 @@ public class Controller extends HttpServlet {
         input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
         prop.load(input);
         
-        EmployeeDAO employeeDAO = new EmployeeDAO(prop);
+        //EmployeeDAO employeeDAO = new EmployeeDAO(prop);
         
         
-		// if this is the first time we come here redirect to login page
+        // if this is the first time we come here redirect to login page
         if(request.getParameter("action") == null) {
              request.getRequestDispatcher(JSP_HOME_PAGE).forward(request, response);
         } else {
-			session = request.getSession();
+            session = request.getSession();
 
-			String loginInput = request.getParameter("loginField");
-			String pwdInput = request.getParameter("pwdField");
+            String loginInput = request.getParameter("loginField");
+            String pwdInput = request.getParameter("pwdField");
 
-			userName = prop.getProperty("userName");
-			userPwd = prop.getProperty("userPwd");
+            userName = prop.getProperty("userName");
+            userPwd = prop.getProperty("userPwd");
 
-			adminName = prop.getProperty("adminName");
-			adminPwd = prop.getProperty("adminPwd");
+            adminName = prop.getProperty("adminName");
+            adminPwd = prop.getProperty("adminPwd");
 
-			// check login
-			String role = "user";
-			if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
-                            role = "user";
-			}
-			else
-			{
-				if(loginInput.equals(adminName) && pwdInput.equals(adminPwd)) {
-					role = "admin";
-					errKey = "";
-				}
-				else
-					errKey = ERR_CONNECTION;
-			}
-			if(loginInput.isEmpty() || pwdInput.isEmpty())
-				errKey = ERR_EMPTY_FIELDS;
-                
-			// then redirect to the correct page with the correct rights
+            // check login
+            String role = "user";
+            if(loginInput.equals(userName) && pwdInput.equals(userPwd)){
+                role = "user";
+            }
+            else
+            {
+                if(loginInput.equals(adminName) && pwdInput.equals(adminPwd)) {
+                    role = "admin";
+                    errKey = "";
+                }
+                else
+                    errKey = ERR_CONNECTION;
+            }
+            if(loginInput.isEmpty() || pwdInput.isEmpty())
+                    errKey = ERR_EMPTY_FIELDS;
+
+            // then redirect to the correct page with the correct rights
             if (errKey.isEmpty()) {
-                ArrayList<Employees> listEmployees = employeeDAO.getEmployees();
+                ArrayList<Employees> listEmployees = new ArrayList<>();
+                listEmployees.addAll(employeesSB.getEmployees());
                 request.setAttribute("klistEmployees", listEmployees);
                 session.setAttribute("krole", role);
                 request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);

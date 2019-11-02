@@ -6,13 +6,14 @@
 package com.mycompany.se.abdmeziem.moutte.part2.Controller;
 
 import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
-import com.mycompany.se.abdmeziem.moutte.part2.Model.EmployeeDAO;
+import com.mycompany.se.abdmeziem.moutte.part2.Classes.EmployeesSB;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.JSP_GOODBYE_PAGE;
 import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.JSP_LIST_EMPLOYEE_PAGE;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ControllerDetailEmployee", urlPatterns = {"/ControllerDetailEmployee"})
 public class ControllerDetailEmployee extends HttpServlet {
+    @EJB
+    private EmployeesSB employeesSB;
     private InputStream input;
 
     /**
@@ -42,14 +45,13 @@ public class ControllerDetailEmployee extends HttpServlet {
         
         if(request.getParameter("logout") != null){
              HttpSession session = request.getSession();
-             session.invalidate();;
+             session.invalidate();
              request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
              return;
         }
          if(request.getParameter("update") != null){
-            String idtt = request.getParameter("id");
+            int id = Integer.parseInt(request.getParameter("id"));
   
-            int id = 6;
             String name = request.getParameter("name");
             String firstname = request.getParameter("firstname");
             String phonHome = request.getParameter("phonHome");
@@ -64,11 +66,14 @@ public class ControllerDetailEmployee extends HttpServlet {
             input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
             prop.load(input);
  
-            EmployeeDAO employeeDAO = new EmployeeDAO(prop);
+            // EmployeeDAO employeeDAO = new EmployeeDAO(prop);
+            // employeeDAO.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
             
-            employeeDAO.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
+            employeesSB.updateEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
             
-            ArrayList<Employees> listEmployees = employeeDAO.getEmployees();
+            // ArrayList<Employees> listEmployees = employeeDAO.getEmployees();
+            ArrayList<Employees> listEmployees = new ArrayList<>();
+            listEmployees.addAll(employeesSB.getEmployees());
             request.setAttribute("klistEmployees", listEmployees);
             request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
          }
