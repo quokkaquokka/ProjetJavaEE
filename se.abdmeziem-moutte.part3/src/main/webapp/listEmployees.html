@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <script src="jquery.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            function setList(data) {
+                data.forEach(function(item) {
+                    $("#employees").append('<tr>')
+                    $("#employees").append('<td>' + '<input type="radio" name="ids" id="ids" value="' + item.objectID + '" checked>' + '</td>')
+                    $("#employees").append('<td>' + item.name + '</td>')
+                    $("#employees").append('<td>' + item.firstname + '</td>')
+                    $("#employees").append('<td>' + item.telhome + '</td>')
+                    $("#employees").append('<td>' + item.telmob + '</td>')
+                    $("#employees").append('<td>' + item.telpro + '</td>')
+                    $("#employees").append('<td>' + item.adress +  '</td>')
+                    $("#employees").append('<td>' + item.postalcode + '</td>')
+                    $("#employees").append('<td>' + item.city + '</td>')
+                    $("#employees").append('<td>' + item.email + '</td>')
+                    $("#employees").append("</tr>")
+                })
+            }
+        </script>
+        <script>
+            $.ajax({
+              url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/getAll"
+            })
+            .done(function( data ) {
+                  var employees = data.hits
+                  console.log('Employees : ' , employees)
+                  setList(employees)
+            })
+        </script>
+        <form  name='myform'>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Details</th>
+                        <th>Name</th>
+                        <th>Firstname</th>
+                        <th>Phone Home</th>
+                        <th>Phone Mobile</th>
+                        <th>Phone Pro</th>
+                        <th>Address</th>
+                        <th>Postal code</th>
+                        <th>City</th>
+                        <th>email</th>
+                    </tr>
+                </thead>
+                    <tbody id="employees">
+                    </tbody>
+            </table>
+            <div class="ml-2" id="btnDelete">
+                <script>
+                    if(true)
+                        $("#btnDelete").append('<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>')
+                </script>
+
+                <input type="submit" name="details" class="btn btn-info" value="Details">
+                <script>
+                    if(true)
+                        $("#btnDelete").append(' <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>')
+                </script>
+                
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalTitle">Confirm delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" name="delete" class="btn btn-danger" value="Confirm">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </body>
+</html>

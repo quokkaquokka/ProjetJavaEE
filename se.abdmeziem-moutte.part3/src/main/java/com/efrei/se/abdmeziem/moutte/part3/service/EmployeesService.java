@@ -27,7 +27,7 @@ public interface EmployeesService {
     public void addEmployees();
     public void deleteEmployees();
     public void getEmployees();
-    public String getAllEmployees();
+    public Response getAllEmployees();
     
    
     

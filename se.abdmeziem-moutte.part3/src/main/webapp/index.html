@@ -4,35 +4,64 @@
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+         <style>
+            span {
+              color: red;
+            }
+        </style>
     </head>
     <body>
         <script src="jquery.js"></script>
-                    <script>
-                        $.ajax({
-                          url: "http://localhost:8080/employees/getAll",
-                          success: function( result ) {
-                              console.log('TVVMB')
-                            $( "#weather-temp" ).html( "<strong>" + result + "</strong> degrees" );
-                          }
-                        });
-                        
-                        
-                        
-                    </script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <div class="card mx-auto mt-5" style="max-width: 500px;">
             <div class="card-header">
                  Login
             </div>
              <div class="card-body">
-                <form>
-                    <!-- <c:if test="${!empty errKey}">
-                        <div class="alert alert-danger">${errKey}</div>
-                    </c:if> -->
-                    
-                    Login :<input type='text' name='loginField' class="form-control"><br/>
-                    Password :<input type='password' name='pwdField' class="form-control"><br/>
+                 <span></span><br>
+                 <form>
+                    Login :<input id="text" type='text' class="form-control"><br/>
+                    Password :<input id="pwd" type='password' class="form-control"><br/>
                     <input type='submit' name='action' value='Login' class="btn btn-primary">
+                    
                 </form>
+                 <script>
+                    console.log('##2')
+                    $("form" ).submit(function( event ) {
+                        
+                        console.log("HERE SUBMIT");
+                        var error = "";
+                        var text = $("#text").val();
+                        var pwd = $("#pwd").val();
+                        
+                        event.preventDefault();
+                        // connection with db properties
+                      if ( text === "admin"  && pwd === "admin") {
+                        // $.session.set("role", "admin");
+                        // console.log("totooo, " + $.session.get("role"))
+                        console.log("oo");
+                        window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
+
+                      }
+                      else if(text === "empl"  && pwd === "empl"){
+                          
+                          $.session.set("role", "empl");
+                          
+                          window.location.href = 'listEmployees.html';
+                          
+                      }
+                      else{
+                          error = "Connection failed! Verify your login/password and try again."
+                          if(!text || !pwd)
+                              error = "You must enter values in both fields"
+                              
+                              
+                          $( "span" ).text(error).show();
+                          event.preventDefault();
+                          
+                      }
+                    });
+                </script>
              </div>
          </div>
     </body>

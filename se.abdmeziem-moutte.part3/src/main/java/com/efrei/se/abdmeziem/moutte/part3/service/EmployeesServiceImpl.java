@@ -9,6 +9,8 @@ import com.algolia.search.DefaultSearchClient;
 import com.efrei.se.abdmeziem.moutte.part3.model.Employees;
 import com.algolia.search.SearchClient;
 import com.algolia.search.SearchIndex;
+import com.algolia.search.models.indexing.Query;
+import com.algolia.search.models.indexing.SearchResult;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.*;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -16,6 +18,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 /**
  *
  * @author QuokkaKoala
@@ -27,7 +30,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     
     @Override
     @POST
-    @Path("/add")
+    @Path("add")
     public void addEmployees(){
      
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
@@ -37,13 +40,16 @@ public class EmployeesServiceImpl implements EmployeesService {
     
     @Override
     @GET
-    @Path("/getAll")
+    @Path("getAll")
     @Produces("application/json")
-    public String getAllEmployees(){
-         //SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        //SearchIndex<Employees> index = client.initIndex("Employees", Employees.class);
-        // System.out.print("Employess: " + index);
-        return "Toto";
+    public Response getAllEmployees(){
+        System.out.print("Employess: " );
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<Employees> index = client.initIndex("employees", Employees.class);
+        SearchResult<Employees> search1 = index.search(new Query());
+        System.out.print("Employess: " + search1);
+        // "{\"name\": \"Toto\", \"klist\":[\"tata\", \"kiki\", \"kuku\"]}"
+        return Response.ok(search1).build();
         //SearchIndex<Employees> result = index.search(new Query("jimmie"));
     }
 
