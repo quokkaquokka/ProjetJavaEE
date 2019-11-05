@@ -43,13 +43,13 @@ public class EmployeesServiceImpl implements EmployeesService {
     @Path("getAll")
     @Produces("application/json")
     public Response getAllEmployees(){
-        System.out.print("Employess: " );
+        System.out.print(" API : getAll" );
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<Employees> index = client.initIndex("employees", Employees.class);
-        SearchResult<Employees> search1 = index.search(new Query());
-        System.out.print("Employess: " + search1);
+        SearchResult<Employees> allEmployees = index.search(new Query());
+        System.out.print("Employess: " + allEmployees);
         // "{\"name\": \"Toto\", \"klist\":[\"tata\", \"kiki\", \"kuku\"]}"
-        return Response.ok(search1).build();
+        return Response.ok(allEmployees).build();
         //SearchIndex<Employees> result = index.search(new Query("jimmie"));
     }
 
@@ -59,7 +59,20 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     @Override
-    public void getEmployees() {
+    @GET
+    @Path("get")
+    @Produces("application/json")
+    public Response getEmployees(String id) {
+        System.out.print("API : get" );
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<Employees> index = client.initIndex("employees", Employees.class);
+        // recherche 
+       /* SearchResult<Employees> employees = index.findObject(
+             x -> x.getFirstName().equals("Jimmie"),
+        new Query()); */
+        SearchResult<Employees> employees = index.search(new Query());
+        System.out.print("Employess: " + employees);
+        return Response.ok(employees).build();
        
     }
     

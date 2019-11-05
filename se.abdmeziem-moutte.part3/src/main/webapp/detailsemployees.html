@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <script src="jquery.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            function setList(data) {
+                data.forEach(function(item) {
+                    $("#employees").append('<tr>')
+                    $("#employees").append('<td>' + '<input type="radio" name="ids" id="ids" value="' + item.objectID + '" checked>' + '</td>')
+                    $("#employees").append('<td>' + item.name + '</td>')
+                    $("#employees").append('<td>' + item.firstname + '</td>')
+                    $("#employees").append('<td>' + item.telhome + '</td>')
+                    $("#employees").append('<td>' + item.telmob + '</td>')
+                    $("#employees").append('<td>' + item.telpro + '</td>')
+                    $("#employees").append('<td>' + item.adress +  '</td>')
+                    $("#employees").append('<td>' + item.postalcode + '</td>')
+                    $("#employees").append('<td>' + item.city + '</td>')
+                    $("#employees").append('<td>' + item.email + '</td>')
+                    $("#employees").append("</tr>")
+                })
+            }
+        </script>
+        <script>
+            $.ajax({
+              url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/get"
+            })
+            .done(function( data ) {
+                  var employees = data.hits
+                  console.log('Employees : ' , employees)
+                  setList(employees)
+            })
+        </script>
+        <div>TODO write content</div>
+    </body>
+</html>

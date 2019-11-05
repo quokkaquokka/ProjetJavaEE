@@ -7,7 +7,7 @@ package com.mycompany.se.abdmeziem.moutte.part2.Utils;
 
 /**
  *
- * @author QuokkaKoala
+ * @author Camille Moutte and Theo Abdmeziem
  */
 public class Constantes {
     public static final String JSP_HOME_PAGE = "WEB-INF/home.jsp";
@@ -15,7 +15,6 @@ public class Constantes {
     public static final String JSP_DETAIL_EMPLOYEE_PAGE = "WEB-INF/detailsEmployee.jsp";
     public static final String JSP_GOODBYE_PAGE = "WEB-INF/goodbye.jsp";
     
-    public static final String SEL_QUERY = "SELECT * from CREDENTIALS";
     public static final String SEL_EMPLOYEES = "SELECT * from EMPLOYEES";
     public static final String SEL_EMPLOYEE = "SELECT * from EMPLOYEES WHERE ID = ";
     public static final String INS_EMPLOYEE = "INSERT INTO EMPLOYEES (NAME,FIRSTNAME,TELHOME,TELMOB,TELPRO,ADRESS,POSTALCODE,CITY,EMAIL) VALUES (?,?,?,?,?,?,?,?,?)";

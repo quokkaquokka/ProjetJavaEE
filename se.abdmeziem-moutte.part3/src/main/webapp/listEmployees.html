@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
     <body>
         <script src="jquery.js"></script>
@@ -50,7 +50,7 @@ and open the template in the editor.
                         <th>Name</th>
                         <th>Firstname</th>
                         <th>Phone Home</th>
-                        <th>Phone Mobile</th>
+                        <th>Phone Mobile</th> 
                         <th>Phone Pro</th>
                         <th>Address</th>
                         <th>Postal code</th>
@@ -66,8 +66,26 @@ and open the template in the editor.
                     if(true)
                         $("#btnDelete").append('<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>')
                 </script>
+                <a href="detailsemployees.html?id=577000232" class="btn btn-info">Go to Google</a>
+                <button type="submit" class="btn btn-info">Détails</button>
+                <script>
+                    var form = document.querySelector("form");
 
-                <input type="submit" name="details" class="btn btn-info" value="Details">
+                    form.addEventListener("submit", function(event) {
+                      var data = new FormData(form);
+                      var output = "";
+                      for (const entry of data) {
+                        output = entry[0] + "=" + entry[1] + "\r";
+                      };
+                      console.log("ids = ", output);
+                      
+                      event.preventDefault();
+                      
+                      window.location.href = "/se.abdmeziem-moutte.part3/detailsemployees.html? " + output
+                    }, false);
+                </script>
+                
+
                 <script>
                     if(true)
                         $("#btnDelete").append(' <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>')

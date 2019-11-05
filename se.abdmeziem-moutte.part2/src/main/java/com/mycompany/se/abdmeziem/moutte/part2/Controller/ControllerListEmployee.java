@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author QuokkaKoala
+ * @author Camille Moutte and Theo Abdmeziem
  */
 @WebServlet(name = "ControllerListEmployee", urlPatterns = {"/ControllerListEmployee"})
 public class ControllerListEmployee extends HttpServlet {
@@ -44,44 +44,51 @@ public class ControllerListEmployee extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-		Properties prop = new Properties();
-		input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
-		prop.load(input);
+        Properties prop = new Properties();
+        input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
+        prop.load(input);
 
-		String id = request.getParameter("ids");
-                
+        HttpSession session = request.getSession();
+        
         if(request.getParameter("logout") != null){
-             HttpSession session = request.getSession();
-             session.invalidate();;
-             request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
-             return;
+            session = request.getSession();
+            session.invalidate();
+            request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
+            return;
         }
 		
-		// to get the details of the selected employee
+        // to get the details of the selected employee
+        String id = request.getParameter("ids");
         if(request.getParameter("details") != null) {
             String[] ids = request.getParameterValues("ids");
             
             id = "";
             if(ids != null){
                 if(ids.length == 1) id = ids[0];
-                // Employees empl = employeeDAO.getEmployee(id);
                 Employees empl = employeesSB.getEmployee(Integer.parseInt(id));
                 request.setAttribute("kEmployee", empl);
+                
+                String disableInput = "";
+                String role= session.getAttribute("krole").toString();
+                if(role.equals("admin"))
+                  disableInput = "";
+                else
+                  disableInput = "disabled";
+           
+                request.setAttribute("isAdmin", disableInput);
                 request.getRequestDispatcher(JSP_DETAIL_EMPLOYEE_PAGE).forward(request, response);
             }
-
         }
-		// to delete the selected employee
-		else if(request.getParameter("delete") != null) {
-                        employeesSB.deleteEmployee(Integer.parseInt(id));
+        // to delete the selected employee
+        else if(request.getParameter("delete") != null) {
+            employeesSB.deleteEmployee(Integer.parseInt(id));
 
-                        
-                        ArrayList<Employees> listEmployees = new ArrayList<>();
-                        listEmployees.addAll(employeesSB.getEmployees());
-                
-			request.setAttribute("klistEmployees", listEmployees);
-			request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
-		}
+            ArrayList<Employees> listEmployees = new ArrayList<>();
+            listEmployees.addAll(employeesSB.getEmployees());
+
+            request.setAttribute("klistEmployees", listEmployees);
+            request.getRequestDispatcher(JSP_LIST_EMPLOYEE_PAGE).forward(request, response);
+        }
        
     }
 

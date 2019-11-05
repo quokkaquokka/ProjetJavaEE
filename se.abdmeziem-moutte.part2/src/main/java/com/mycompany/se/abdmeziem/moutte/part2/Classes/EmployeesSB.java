@@ -13,7 +13,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author QuokkaKoala
+ * @author Camille Moutte and Theo Abdmeziem
  */
 @Stateless
 public class EmployeesSB {
@@ -34,8 +34,7 @@ public class EmployeesSB {
     }
     
      public void deleteEmployee(int id) {        
-        Query query = em.createQuery(
-      "DELETE FROM Employees e WHERE e.id = :id");
+        Query query = em.createQuery("DELETE FROM Employees e WHERE e.id = :id");
         int deletedCount = query.setParameter("id", id).executeUpdate();
     }
      
@@ -59,11 +58,11 @@ public class EmployeesSB {
      }
      
      public void addEmployees(String name, String firstname, String homePhone,
-			String mobPhone, String proPhone, String address, String postcode,
-			String city, String email) {
-          Query query = em.createNativeQuery(
-                "INSERT INTO EMPLOYEES (NAME,FIRSTNAME,TELHOME,TELMOB,TELPRO,ADRESS,POSTALCODE,CITY,EMAIL) VALUES (?,?,?,?,?,?,?,?,?)"
-            );
+            String mobPhone, String proPhone, String address, String postcode,
+            String city, String email) {
+        Query query = em.createNativeQuery(
+              "INSERT INTO EMPLOYEES (NAME,FIRSTNAME,TELHOME,TELMOB,TELPRO,ADRESS,POSTALCODE,CITY,EMAIL) VALUES (?,?,?,?,?,?,?,?,?)"
+          );
           
         int isDone = query.setParameter(1, name)
             .setParameter(2, firstname)
@@ -75,7 +74,5 @@ public class EmployeesSB {
             .setParameter(8, city)
             .setParameter(9, email)
             .executeUpdate();
-         
-         
      }
 }

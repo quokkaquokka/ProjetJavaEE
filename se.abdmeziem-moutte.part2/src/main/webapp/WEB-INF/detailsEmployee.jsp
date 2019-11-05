@@ -1,7 +1,7 @@
 <%-- 
     Document   : detailsEmployee
     Created on : 25 oct. 2019, 10:00:48
-    Author     : QuokkaKoala
+    Author     : Camille Moutte and Theo Abdmeziem
 --%>
 
 <%@page import="com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees"%>
@@ -21,26 +21,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% 
-          Employees empl = (Employees) request.getAttribute("kEmployee");
-           pageContext.setAttribute("employee", empl);
-           pageContext.setAttribute("isAdmin", "disabled");
-           
-           String role = (String) session.getAttribute("krole");
-           String disableInput = "";
-           if(role.equals("admin"))
-             disableInput = "";
-           else
-             disableInput = "disabled";
-           
-           pageContext.setAttribute("isAdmin", disableInput);
-           
-           if(empl == null) {
-               %>
-               <div class="alert alert-danger">The employee doesn't exist. </div>
-               <%
-           }
-        %>
+        <c:if test="${empty kEmployee}">
+            <div class="alert alert-danger">The employee doesn't exist.</div>
+        </c:if>
         <form name='loggout' action="ControllerDetailEmployee">
             <input type='submit' name='logout' value='Logout' class="btn btn-primary">
         </form>
@@ -54,52 +37,50 @@
                     <tbody>
                          <tr>
                             <td>ID</td>
-                             <td><input type="text" name="id" value="<c:out value="${employee.id}" />" class="form-control" readonly /></td>
+                             <td><input type="text" name="id" value="${kEmployee.id}" class="form-control" readonly /></td>
                         </tr>
                         <tr>
                             <td>Name *</td>
-                             <td><input type="text" name="name" value="<c:out value="${employee.name}" />" class="form-control" <c:out value="${isAdmin}"/> required/></td>
-                        </tr>
-                        <tr>
-                            <td>Firstname *</td>
-                            <td><input type="text" name="firstname" value="<c:out value="${employee.firstname}"/>" class="form-control" <c:out value="${isAdmin}"/> required/></td>
+                            <td><input type="text" name="name" value="${kEmployee.name}" class="form-control" ${isAdmin} required/></td>
                             
                         </tr>
                         <tr>
+                            <td>Firstname *</td>
+                            <td><input type="text" name="firstname" value="${kEmployee.firstname}" class="form-control" ${isAdmin} required/></td>
+                        </tr>
+                        <tr>
                             <td>Phone Home</td>
-                            <td><input type="text" name="phonHome" value="<c:out value="${employee.telhome}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="phonHome" value="${kEmployee.telhome}" class="form-control" ${isAdmin}/></td>
                         </tr>
                         <tr>
                             <td>Phone Mobile</td>
-                            <td><input type="text" name="phonMob" value="<c:out value="${employee.telmob}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="phonMob" value="${kEmployee.telmob}" class="form-control" ${isAdmin}/></td>
                         </tr>
                         <tr>
                             <td>Phone Pro</td>
-                            <td><input type="text" name="phonPro" value="<c:out value="${employee.telpro}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="phonPro" value="${kEmployee.telpro}" class="form-control" ${isAdmin}/></td>
                         </tr>
                         <tr>
                             <td>Address</td>
-                            <td><input type="text" name="adress" value="<c:out value="${employee.adress}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="adress" value="${kEmployee.adress}" class="form-control" ${isAdmin}/></td>
                         </tr>
                         <tr>
                             <td>Postal code</td>
-                            <td><input type="text" name="postCode" value="<c:out value="${employee.postalcode}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="postCode" value="${kEmployee.postalcode}" class="form-control" ${isAdmin}/></td>
                         </tr>
                         <tr>
                             <td>City</td>
-                            <td><input type="text" name="city" value="<c:out value="${employee.city}"/>" class="form-control" <c:out value="${isAdmin}" />/></td>
+                            <td><input type="text" name="city" value="${kEmployee.city}" class="form-control" ${isAdmin}/></td>
                         </tr>
                         <tr>
                             <td>email *</td>
-                            <td><input type="email" name="email" value="<c:out value="${employee.email}"/>" class="form-control" <c:out value="${isAdmin}"/> required/></td>
+                            <td><input type="email" name="email" value="${kEmployee.email}" class="form-control" ${isAdmin} required/></td>
                         </tr>
                 </tbody>
-               </table>
-                        
-                            <c:if test="${krole == 'admin'}">
-                                <input type='submit' name='update' class="btn btn-primary">
-                            </c:if>
-                       
+               </table>    
+                <c:if test="${krole == 'admin'}">
+                    <input type='submit' name='update' class="btn btn-primary">
+                </c:if> 
                 </form>
             </div>
         </div>

@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author QuokkaKoala
+ * @author Camille Moutte and Theo Abdmeziem
  */
 @WebServlet(name = "ControllerDetailEmployee", urlPatterns = {"/ControllerDetailEmployee"})
 public class ControllerDetailEmployee extends HttpServlet {
@@ -44,10 +44,10 @@ public class ControllerDetailEmployee extends HttpServlet {
       throws ServletException, IOException {
         
         if(request.getParameter("logout") != null){
-             HttpSession session = request.getSession();
-             session.invalidate();
-             request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
-             return;
+            HttpSession session = request.getSession();
+            session.invalidate();
+            request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
+            return;
         }
          if(request.getParameter("update") != null){
             int id = Integer.parseInt(request.getParameter("id"));
@@ -65,13 +65,9 @@ public class ControllerDetailEmployee extends HttpServlet {
             Properties prop = new Properties();
             input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
             prop.load(input);
- 
-            // EmployeeDAO employeeDAO = new EmployeeDAO(prop);
-            // employeeDAO.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
             
             employeesSB.updateEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
-            
-            // ArrayList<Employees> listEmployees = employeeDAO.getEmployees();
+
             ArrayList<Employees> listEmployees = new ArrayList<>();
             listEmployees.addAll(employeesSB.getEmployees());
             request.setAttribute("klistEmployees", listEmployees);

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author QuokkaKoala
+ * @author Camille Moutte and The Abdmeziem
  */
 public class ControllerAddEmployee extends HttpServlet {
 
@@ -56,12 +56,8 @@ public class ControllerAddEmployee extends HttpServlet {
 		Properties prop = new Properties();
                 input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
                 prop.load(input);
-        
-                // EmployeeDAO employeeModel = new EmployeeDAO(prop);
                 
                 employeesSB.addEmployees(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
-		
-		// employeeModel.addEmployee(name, firstname, homePhone, mobPhone, proPhone, address, postcode, city, email);
 		
 		ArrayList<Employees> listEmployees = new ArrayList<>();
                 listEmployees.addAll(employeesSB.getEmployees());
