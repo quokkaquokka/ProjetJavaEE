@@ -5,6 +5,7 @@
  */
 package com.mycompany.se.abdmeziem.moutte.part2.Classes;
 
+import static com.mycompany.se.abdmeziem.moutte.part2.Utils.Constantes.*;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,29 +22,27 @@ public class EmployeesSB {
     EntityManager em;
 
     public List getEmployees() {
-        Query q = em.createQuery("SELECT e FROM Employees e");
+        Query q = em.createQuery(SEL_EMPLOYEES);
         return q.getResultList();
     }
     
     public Employees getEmployee(int id) {
         Employees employees = null;
-        Query q = em.createQuery("SELECT e FROM Employees e WHERE e.id = :id");
+        Query q = em.createQuery(SEL_EMPLOYEE);
         q.setParameter("id", id);
         employees = (Employees) q.getSingleResult();
         return employees;
     }
     
      public void deleteEmployee(int id) {        
-        Query query = em.createQuery("DELETE FROM Employees e WHERE e.id = :id");
+        Query query = em.createQuery(DEL_EMPLOYEE);
         int deletedCount = query.setParameter("id", id).executeUpdate();
     }
      
-     public void updateEmployee(int id, String name, String firstname, String homePhone,
-			String mobPhone, String proPhone, String address, String postcode,
-			String city, String email){
-         Query query = em.createQuery(
-                "UPDATE Employees SET name = :n, firstname = :f, telhome = :th, telmob = :tm, telpro = :tp, adress = :a, postalcode = :p, city = :c, email = :em WHERE id = :id"
-            );
+     public void updateEmployee(int id, String name, String firstname, 
+            String homePhone, String mobPhone, String proPhone, String address, 
+            String postcode, String city, String email){
+         Query query = em.createQuery(UPD_EMPLOYEE);
         int updateCount = query.setParameter("n", name)
             .setParameter("f", firstname)
             .setParameter("th", homePhone)
@@ -60,9 +59,7 @@ public class EmployeesSB {
      public void addEmployees(String name, String firstname, String homePhone,
             String mobPhone, String proPhone, String address, String postcode,
             String city, String email) {
-        Query query = em.createNativeQuery(
-              "INSERT INTO EMPLOYEES (NAME,FIRSTNAME,TELHOME,TELMOB,TELPRO,ADRESS,POSTALCODE,CITY,EMAIL) VALUES (?,?,?,?,?,?,?,?,?)"
-          );
+        Query query = em.createNativeQuery(INS_EMPLOYEE);
           
         int isDone = query.setParameter(1, name)
             .setParameter(2, firstname)
