@@ -30,7 +30,6 @@ public class Controller extends HttpServlet {
     private EmployeesSB employeesSB;
 
     private HttpSession session;
-	
     private InputStream input;
     
     private String userName = "";
