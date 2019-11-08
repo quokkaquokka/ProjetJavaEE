@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 
 public interface EmployeesService {
     public void addEmployees();
-    public void deleteEmployees();
+    public Response deleteEmployees(String data);
     public Response getEmployees(String id);
     public Response getAllEmployees();
     

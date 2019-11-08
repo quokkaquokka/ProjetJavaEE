@@ -6,13 +6,13 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Employee Details Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
     <body>
-        <script src="jquery.js"></script>
+
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
             function setList(data) {
@@ -64,49 +64,62 @@ and open the template in the editor.
             <div class="ml-2" id="btnDelete">
                 <script>
                     if(true)
-                        $("#btnDelete").append('<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>')
+                        $("#btnDelete").append('<button type="button" id="btnDelete" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>')
+                    
                 </script>
-                <a href="detailsemployees.html?id=577000232" class="btn btn-info">Go to Google</a>
-                <button type="submit" class="btn btn-info">Détails</button>
+                <button type="submit" id="btnDetails" class="btn btn-info">Détails</button>
                 <script>
-                    var form = document.querySelector("form");
+                    $("#btnDetails").click(function(ev){
+                        // ev.preventDefault(); // cancel form submission
+                        console.log("DETAILSSSS")
+                        var form = document.querySelector("form");
+                        var data = new FormData(form);
+                        var output = "";
+                        for (const entry of data) {
+                            output = entry[0] + "=" + entry[1] + "\r";
+                        };
+                        console.log("ids = ", output);
 
-                    form.addEventListener("submit", function(event) {
-                      var data = new FormData(form);
-                      var output = "";
-                      for (const entry of data) {
-                        output = entry[0] + "=" + entry[1] + "\r";
-                      };
-                      console.log("ids = ", output);
-                      
-                      event.preventDefault();
-                      
-                      window.location.href = "/se.abdmeziem-moutte.part3/detailsemployees.html? " + output
-                    }, false);
+                        event.preventDefault();
+
+                          window.location.href = "/se.abdmeziem-moutte.part3/detailsemployees.html? " + output
+                      })
                 </script>
                 
 
                 <script>
                     if(true)
-                        $("#btnDelete").append(' <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>')
+                        $("#btnDelete").append(' <button type="button" id="btnDelete" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>')
+                     $("#btnDelete").click(function(ev){
+                       
+                        console.log('DELETE')
+                         
+                          var form = document.querySelector("form");
+                        var data = new FormData(form);
+                        var output = "";
+                        for (const entry of data) {
+                            output = entry[1];
+                        };
+                        console.log("ids ", output);
+                         
+                        var request = $.ajax({
+                          url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/delete/{"+ output +"}",
+                          contentType: "application/json"
+                        })
+
+                        request.done(function (reponse) {
+                            
+                              console.log('Employees : ' , reponse);
+                              window.location.reload();
+                              
+                        });
+                        request.fail(function (jqXHR, textStatus) {
+                           console.log(textStatus, jqXHR);
+                        });
+                     })
                 </script>
                 
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalTitle">Confirm delete</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="submit" name="delete" class="btn btn-danger" value="Confirm">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
         </form>
     </body>
 </html>

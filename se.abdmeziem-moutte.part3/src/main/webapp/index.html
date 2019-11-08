@@ -26,7 +26,6 @@
                     
                 </form>
                  <script>
-                    console.log('##2')
                     $("form" ).submit(function( event ) {
                         
                         console.log("HERE SUBMIT");
@@ -38,8 +37,6 @@
                         // connection with db properties
                       if ( text === "admin"  && pwd === "admin") {
                         // $.session.set("role", "admin");
-                        // console.log("totooo, " + $.session.get("role"))
-                        console.log("oo");
                         window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
 
                       }
@@ -54,11 +51,8 @@
                           error = "Connection failed! Verify your login/password and try again."
                           if(!text || !pwd)
                               error = "You must enter values in both fields"
-                              
-                              
                           $( "span" ).text(error).show();
                           event.preventDefault();
-                          
                       }
                     });
                 </script>

@@ -9,13 +9,16 @@ import com.algolia.search.DefaultSearchClient;
 import com.efrei.se.abdmeziem.moutte.part3.model.Employees;
 import com.algolia.search.SearchClient;
 import com.algolia.search.SearchIndex;
+import com.algolia.search.models.RequestOptions;
 import com.algolia.search.models.indexing.Query;
 import com.algolia.search.models.indexing.SearchResult;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.*;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -54,23 +57,43 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     @Override
-    public void deleteEmployees() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @GET
+    @Path("delete/{objectID}")
+    @Consumes("application/json")
+    @Produces("text/plain")
+    public Response deleteEmployees(@PathParam("objectID") String id) {
+        id = id.substring(1, id.length() - 1);
+        System.out.print("API : delete + " + id);
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<Employees> index = client.initIndex("employees", Employees.class);
+        
+        try{
+           index.deleteObject(id);
+           return Response
+            .ok("ok")
+            .build();
+        }
+        catch(Exception e) {
+            System.out.print(e);
+            return Response
+            .ok("ko")
+            .build();
+        }
     }
 
     @Override
     @GET
-    @Path("get")
+    @Path("get/{objectID}")
+    @Consumes("application/json")
     @Produces("application/json")
-    public Response getEmployees(String id) {
-        System.out.print("API : get" );
+    public Response getEmployees(@PathParam("objectID") String id) {
+        System.out.print("API : get + " + id );
+        id = id.substring(1, id.length() - 1);
+        System.out.print(id.substring(1, id.length() - 1));
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<Employees> index = client.initIndex("employees", Employees.class);
-        // recherche 
-       /* SearchResult<Employees> employees = index.findObject(
-             x -> x.getFirstName().equals("Jimmie"),
-        new Query()); */
-        SearchResult<Employees> employees = index.search(new Query());
+        SearchResult<Employees> employees = index.search(new Query()
+         .setFilters("objectID:'" + id + "'"));
         System.out.print("Employess: " + employees);
         return Response.ok(employees).build();
        
