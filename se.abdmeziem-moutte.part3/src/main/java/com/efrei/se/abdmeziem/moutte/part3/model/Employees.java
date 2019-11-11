@@ -10,7 +10,7 @@ import com.efrei.se.abdmeziem.moutte.part3.model.Employees;
  *
  * @author QuokkaKoala
  */
-public class Employees extends EmployeesWithoutID {
+public class Employees {
     
     
     private String objectID;
@@ -30,7 +30,7 @@ public class Employees extends EmployeesWithoutID {
         return name;
     }
 
-    public EmployeesWithoutID setName(String name) {
+    public Employees setName(String name) {
         this.name = name;
         return this;
     }
@@ -39,7 +39,7 @@ public class Employees extends EmployeesWithoutID {
         return firstname;
     }
 
-    public EmployeesWithoutID setFirstname(String firstname) {
+    public Employees setFirstname(String firstname) {
         this.firstname = firstname;
         return this;
     }
@@ -48,7 +48,7 @@ public class Employees extends EmployeesWithoutID {
         return telhome;
     }
 
-    public EmployeesWithoutID setTelhome(String telhome) {
+    public Employees setTelhome(String telhome) {
         this.telhome = telhome;
         return this;
     }
@@ -57,7 +57,7 @@ public class Employees extends EmployeesWithoutID {
         return telmob;
     }
 
-    public EmployeesWithoutID setTelmob(String telmob) {
+    public Employees setTelmob(String telmob) {
         this.telmob = telmob;
         return this;
     }
@@ -66,7 +66,7 @@ public class Employees extends EmployeesWithoutID {
         return telpro;
     }
 
-    public EmployeesWithoutID setTelpro(String telpro) {
+    public Employees setTelpro(String telpro) {
         this.telpro = telpro;
         return this;
     }
@@ -75,7 +75,7 @@ public class Employees extends EmployeesWithoutID {
         return adress;
     }
 
-    public EmployeesWithoutID setAdress(String adress) {
+    public Employees setAdress(String adress) {
         this.adress = adress;
         return this;
     }
@@ -84,7 +84,7 @@ public class Employees extends EmployeesWithoutID {
         return postalcode;
     }
 
-    public EmployeesWithoutID setPostalcode(String postalcode) {
+    public Employees setPostalcode(String postalcode) {
         this.postalcode = postalcode;
         return this;
     }
@@ -93,7 +93,7 @@ public class Employees extends EmployeesWithoutID {
         return city;
     }
 
-    public EmployeesWithoutID setCity(String city) {
+    public Employees setCity(String city) {
         this.city = city;
         return this;
     }
@@ -102,7 +102,7 @@ public class Employees extends EmployeesWithoutID {
         return email;
     }
 
-    public EmployeesWithoutID setEmail(String email) {
+    public Employees setEmail(String email) {
         this.email = email;
         return this;
     }

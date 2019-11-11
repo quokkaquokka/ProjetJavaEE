@@ -4,6 +4,8 @@
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
          <style>
             span {
               color: red;
@@ -11,8 +13,6 @@
         </style>
     </head>
     <body>
-        <script src="jquery.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <div class="card mx-auto mt-5" style="max-width: 500px;">
             <div class="card-header">
                  Login
@@ -25,6 +25,7 @@
                     <input type='submit' name='action' value='Login' class="btn btn-primary">
                     
                 </form>
+                 
                  <script>
                     $("form" ).submit(function( event ) {
                         
@@ -37,13 +38,15 @@
                         // connection with db properties
                       if ( text === "admin"  && pwd === "admin") {
                         // $.session.set("role", "admin");
+                        Cookies.set('role', 'admin');
+                        // $.cookie("role", "admin");
                         window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
 
                       }
                       else if(text === "empl"  && pwd === "empl"){
                           
                           // $.session.set("role", "empl");
-                          
+                          Cookies.set('role', 'employee');
                           window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
                           
                       }

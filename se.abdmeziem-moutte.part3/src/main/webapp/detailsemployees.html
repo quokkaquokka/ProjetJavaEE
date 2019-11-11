@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
     </head>
     <body>
-
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
             function setList(item) {
-                // var isAdmin = 'disabled'
-                var isAdmin = ''
+                var isAdmin = 'disabled'
+                if(Cookies.get('role') === 'admin')
+                    isAdmin = ''
                 $("#cardTitle").append('<h5 class="card-title"> Details of Employee: '+ item.firstname + ' '+ item.name + '</h5>')
                 $("#id").append('<td><input type="text" id="objectID" name="id" value="' + item.objectID + '" class="form-control" readonly /></td>')
                 $("#name").append('<td><input type="text" id="name-inp" name="name" value="' + item.name +'" class="form-control"'+ isAdmin +' required/></td>')
@@ -33,15 +29,13 @@ and open the template in the editor.
         </script>
         <script>
             var url = window.location.search;
-            window.MyLib = {};
             var request = $.ajax({
               url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/get/{"+ url.substring(url.lastIndexOf("=")+1) +"}",
               contentType: "application/json"
             })
             
             request.done(function (data) {
-                MyLib.employees = data.hits[0];
-                setList(MyLib.employees);
+                setList(data.hits[0]);
                 
             });
             request.fail(function (jqXHR, textStatus) {
@@ -89,15 +83,13 @@ and open the template in the editor.
         </div>
        
        <script>
-            if(true)
+            if(Cookies.get('role') === 'admin')
                 $("#btn").append(' <button type="button" id="btnUpdate" name="btnupdate" class="btn btn-primary">Save</button>')
             $("#btnUpdate").click(function(ev){
-                console.log("employee" + MyLib.employees);
-                console.log("DETAILSSSS")
                 event.preventDefault();
 
                 const updtEmployees = {
-                    // objectID: $("#objectID").val(),
+                    objectID: $("#objectID").val(),
                     name:  $("#name-inp").val(),
                     firstname: $("#firstname-inp").val(),
                     telhome: $("#telhome-inp").val(),
@@ -108,13 +100,10 @@ and open the template in the editor.
                     city: $("#city-inp").val(),
                     email: $("#email-inp").val()
                 }
-                // ar myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/update', updtEmployees, function(resp) {
-                var myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/add', updtEmployees, function(resp) {
+                var myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/update', updtEmployees, function(resp) {
                     console.log('RESP', resp);
                     window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html";                   
                 });
-               
-   
             })
         </script>
     </body>

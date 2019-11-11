@@ -12,7 +12,6 @@ import com.algolia.search.SearchIndex;
 import com.algolia.search.models.RequestOptions;
 import com.algolia.search.models.indexing.Query;
 import com.algolia.search.models.indexing.SearchResult;
-import com.efrei.se.abdmeziem.moutte.part3.model.EmployeesWithoutID;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URLDecoder;

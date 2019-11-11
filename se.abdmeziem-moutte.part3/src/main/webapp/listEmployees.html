@@ -10,10 +10,10 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
     </head>
     <body>
-
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
             function setList(data) {
                 data.forEach(function(item) {
@@ -61,9 +61,10 @@ and open the template in the editor.
                     <tbody id="employees">
                     </tbody>
             </table>
-            <div class="ml-2" id="divDelete">
+            <div class="ml-2" id="divDelete" style="display:inline-block">
                 <script>
-                    if(true)
+                    console.log('Cookie role', Cookies.get('role') )
+                    if(Cookies.get('role') === 'admin')
                         $("#divDelete").append('<button type="button" id="btnDelete" name="delete" class="btn btn-danger">Delete</button>')  
                     $("#btnDelete").click(function(ev){
                         console.log('DELETE')
@@ -108,35 +109,12 @@ and open the template in the editor.
                       })
                 </script>
                 
-                <div id="divAdd">
+                <div class="ml-2" id="divAdd" style="display:inline-block">
                 <script>
-                    if(true)
+                    if(Cookies.get('role') === 'admin')
                         $("#divAdd").append(' <button type="button" id="btnAdd" name="add" class="btn btn-primary">Add</button>')
                      $("#btnAdd").click(function(ev){
-                       
-                        console.log('ADD')
-                         
-                        var form = document.querySelector("form");
-                        var data = new FormData(form);
-                        var output = "";
-                        for (const entry of data) {
-                            output = entry[1];
-                        };
-                        console.log("ids ", output);
-                         
-                        var request = $.ajax({
-                          url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/add/{"+ output +"}",
-                          contentType: "application/json"
-                        })
-
-                        request.done(function (reponse) {
-                            console.log('Employees : ' , reponse);
-                            window.location.reload();
-                              
-                        });
-                        request.fail(function (jqXHR, textStatus) {
-                           console.log(textStatus, jqXHR);
-                        });
+                       window.location.href = "/se.abdmeziem-moutte.part3/addEmployees.html"
                      })
                 </script> 
         </form>
