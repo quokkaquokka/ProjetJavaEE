@@ -5,6 +5,7 @@
  */
 package com.efrei.se.abdmeziem.moutte.part3.service;
 
+import com.efrei.se.abdmeziem.moutte.part3.model.Employees;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,10 +25,11 @@ import javax.ws.rs.core.Response;
  */
 
 public interface EmployeesService {
-    public void addEmployees();
+    public Response addEmployees(String data);
     public Response deleteEmployees(String data);
     public Response getEmployees(String id);
     public Response getAllEmployees();
+    public Response updateEmployees(String employeeID);
     
    
     

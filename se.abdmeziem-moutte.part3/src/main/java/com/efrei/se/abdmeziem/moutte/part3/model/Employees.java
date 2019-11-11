@@ -10,8 +10,10 @@ import com.efrei.se.abdmeziem.moutte.part3.model.Employees;
  *
  * @author QuokkaKoala
  */
-public class Employees {
+public class Employees extends EmployeesWithoutID {
     
+    
+    private String objectID;
     private String name;
     private String firstname;
     private String telhome;
@@ -21,86 +23,96 @@ public class Employees {
     private String postalcode;
     private String city;
     private String email;
-    private String objectID;
+
+    public Employees() {}
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public EmployeesWithoutID setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getFirstname() {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
+    public EmployeesWithoutID setFirstname(String firstname) {
         this.firstname = firstname;
+        return this;
     }
 
     public String getTelhome() {
         return telhome;
     }
 
-    public void setTelhome(String telhome) {
+    public EmployeesWithoutID setTelhome(String telhome) {
         this.telhome = telhome;
+        return this;
     }
 
     public String getTelmob() {
         return telmob;
     }
 
-    public void setTelmob(String telmob) {
+    public EmployeesWithoutID setTelmob(String telmob) {
         this.telmob = telmob;
+        return this;
     }
 
     public String getTelpro() {
         return telpro;
     }
 
-    public void setTelpro(String telpro) {
+    public EmployeesWithoutID setTelpro(String telpro) {
         this.telpro = telpro;
+        return this;
     }
 
     public String getAdress() {
         return adress;
     }
 
-    public void setAdress(String adress) {
+    public EmployeesWithoutID setAdress(String adress) {
         this.adress = adress;
+        return this;
     }
 
     public String getPostalcode() {
         return postalcode;
     }
 
-    public void setPostalcode(String postalcode) {
+    public EmployeesWithoutID setPostalcode(String postalcode) {
         this.postalcode = postalcode;
+        return this;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public EmployeesWithoutID setCity(String city) {
         this.city = city;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public EmployeesWithoutID setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getObjectID() {
         return objectID;
     }
 
-    public void setObjectID(String objectID) {
+    public Employees setObjectID(String objectID) {
         this.objectID = objectID;
+        return this;
     }
-    
 }

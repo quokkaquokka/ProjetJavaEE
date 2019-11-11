@@ -61,40 +61,13 @@ and open the template in the editor.
                     <tbody id="employees">
                     </tbody>
             </table>
-            <div class="ml-2" id="btnDelete">
+            <div class="ml-2" id="divDelete">
                 <script>
                     if(true)
-                        $("#btnDelete").append('<button type="button" id="btnDelete" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>')
-                    
-                </script>
-                <button type="submit" id="btnDetails" class="btn btn-info">Détails</button>
-                <script>
-                    $("#btnDetails").click(function(ev){
-                        // ev.preventDefault(); // cancel form submission
-                        console.log("DETAILSSSS")
-                        var form = document.querySelector("form");
-                        var data = new FormData(form);
-                        var output = "";
-                        for (const entry of data) {
-                            output = entry[0] + "=" + entry[1] + "\r";
-                        };
-                        console.log("ids = ", output);
-
-                        event.preventDefault();
-
-                          window.location.href = "/se.abdmeziem-moutte.part3/detailsemployees.html? " + output
-                      })
-                </script>
-                
-
-                <script>
-                    if(true)
-                        $("#btnDelete").append(' <button type="button" id="btnDelete" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>')
-                     $("#btnDelete").click(function(ev){
-                       
+                        $("#divDelete").append('<button type="button" id="btnDelete" name="delete" class="btn btn-danger">Delete</button>')  
+                    $("#btnDelete").click(function(ev){
                         console.log('DELETE')
-                         
-                          var form = document.querySelector("form");
+                        var form = document.querySelector("form");
                         var data = new FormData(form);
                         var output = "";
                         for (const entry of data) {
@@ -108,9 +81,8 @@ and open the template in the editor.
                         })
 
                         request.done(function (reponse) {
-                            
-                              console.log('Employees : ' , reponse);
-                              window.location.reload();
+                            console.log('Employees : ' , reponse);
+                            window.location.reload();
                               
                         });
                         request.fail(function (jqXHR, textStatus) {
@@ -118,8 +90,55 @@ and open the template in the editor.
                         });
                      })
                 </script>
+                <button type="submit" id="btnDetails" class="btn btn-info">Détails</button>
+                <script>
+                    $("#btnDetails").click(function(ev){
+                        console.log("DETAILSSSS")
+                        var form = document.querySelector("form");
+                        var data = new FormData(form);
+                        var output = "";
+                        for (const entry of data) {
+                            output = entry[0] + "=" + entry[1] + "\r";
+                        };
+                        console.log("ids = ", output);
+
+                        event.preventDefault();
+
+                        window.location.href = "/se.abdmeziem-moutte.part3/detailsemployees.html? " + output
+                      })
+                </script>
                 
-                
+                <div id="divAdd">
+                <script>
+                    if(true)
+                        $("#divAdd").append(' <button type="button" id="btnAdd" name="add" class="btn btn-primary">Add</button>')
+                     $("#btnAdd").click(function(ev){
+                       
+                        console.log('ADD')
+                         
+                        var form = document.querySelector("form");
+                        var data = new FormData(form);
+                        var output = "";
+                        for (const entry of data) {
+                            output = entry[1];
+                        };
+                        console.log("ids ", output);
+                         
+                        var request = $.ajax({
+                          url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/add/{"+ output +"}",
+                          contentType: "application/json"
+                        })
+
+                        request.done(function (reponse) {
+                            console.log('Employees : ' , reponse);
+                            window.location.reload();
+                              
+                        });
+                        request.fail(function (jqXHR, textStatus) {
+                           console.log(textStatus, jqXHR);
+                        });
+                     })
+                </script> 
         </form>
     </body>
 </html>

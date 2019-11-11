@@ -16,44 +16,43 @@ and open the template in the editor.
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
             function setList(item) {
-                var isAdmin = 'disabled'
+                // var isAdmin = 'disabled'
+                var isAdmin = ''
                 $("#cardTitle").append('<h5 class="card-title"> Details of Employee: '+ item.firstname + ' '+ item.name + '</h5>')
-                $("#id").append('<td><input type="text" name="id" value="' + item.objectID + '" class="form-control" readonly /></td>')
-                $("#name").append('<td><input type="text" name="name" value="' + item.name +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#firstname").append('<td><input type="text" name="firstname" value="' + item.firstname +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#telhome").append('<td><input type="text" name="firstname" value="' + item.telhome +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#telmob").append('<td><input type="text" name="firstname" value="' + item.telmob +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#telpro").append('<td><input type="text" name="firstname" value="' + item.telpro +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#adress").append('<td><input type="text" name="firstname" value="' + item.adress +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#postcode").append('<td><input type="text" name="firstname" value="' + item.postalcode +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#city").append('<td>City</td><td><input type="text" name="firstname" value="' + item.city +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#city").append('<td>email *</td><td><input type="text" name="firstname" value="' + item.email +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#id").append('<td><input type="text" id="objectID" name="id" value="' + item.objectID + '" class="form-control" readonly /></td>')
+                $("#name").append('<td><input type="text" id="name-inp" name="name" value="' + item.name +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#firstname").append('<td><input type="text" id="firstname-inp" name="firstname" value="' + item.firstname +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#telhome").append('<td><input type="text" id="telhome-inp" name="telhome" value="' + item.telhome +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#telmob").append('<td><input type="text" id="telmob-inp" name="telmob" value="' + item.telmob +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#telpro").append('<td><input type="text" id="telpro-inp" name="telpro" value="' + item.telpro +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#adress").append('<td><input type="text" id="adress-inp" name="adress" value="' + item.adress +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#postcode").append('<td><input type="text" id="postalcode-inp" name="postalcode" value="' + item.postalcode +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#city").append('<td>City</td><td><input type="text" id="city-inp" name="city" value="' + item.city +'" class="form-control"'+ isAdmin +' required/></td>')
+                $("#city").append('<td>email *</td><td><input type="text" id="email-inp" name="email" value="' + item.email +'" class="form-control"'+ isAdmin +' required/></td>')           
             }  
         </script>
         <script>
             var url = window.location.search;
-            console.log(url);
+            window.MyLib = {};
             var request = $.ajax({
               url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/get/{"+ url.substring(url.lastIndexOf("=")+1) +"}",
               contentType: "application/json"
             })
             
             request.done(function (data) {
-                  var employees = data.hits[0]
-                  console.log('Employees : ' , employees)
-                  setList(data.hits[0])
+                MyLib.employees = data.hits[0];
+                setList(MyLib.employees);
+                
             });
             request.fail(function (jqXHR, textStatus) {
                console.log(textStatus, jqXHR);
             });
         </script>
  
-        
-        
         <div class="card" style="width: 800px; margin: auto; margin-top: 30px;">
             <div class="card-header" id="cardTitle"></div>
         <div class="card-body">
-                <form  name='myform' action="ControllerDetailEmployee">
+                <form  name='myform'>
                     <table class="">
                     <tbody>
                          <tr id="id">
@@ -84,29 +83,39 @@ and open the template in the editor.
 
                 </tbody>
                </table>    
-                    <!-- JUST ADMIN-->
-                    <input type='submit' name='update' class="btn btn-primary">
+                    <div id="btn"></div>
                 </form>
             </div>
         </div>
-        
-        
-        <!-- delete modal -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalTitle">Confirm delete</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" name="delete" class="btn btn-danger" value="Confirm">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+       
+       <script>
+            if(true)
+                $("#btn").append(' <button type="button" id="btnUpdate" name="btnupdate" class="btn btn-primary">Save</button>')
+            $("#btnUpdate").click(function(ev){
+                console.log("employee" + MyLib.employees);
+                console.log("DETAILSSSS")
+                event.preventDefault();
+
+                const updtEmployees = {
+                    // objectID: $("#objectID").val(),
+                    name:  $("#name-inp").val(),
+                    firstname: $("#firstname-inp").val(),
+                    telhome: $("#telhome-inp").val(),
+                    telmob: $("#telmob-inp").val(),
+                    telpro: $("#telpro-inp").val(),
+                    adress: $("#adress-inp").val(),
+                    postalcode: $("#postalcode-inp").val(),
+                    city: $("#city-inp").val(),
+                    email: $("#email-inp").val()
+                }
+                // ar myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/update', updtEmployees, function(resp) {
+                var myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/add', updtEmployees, function(resp) {
+                    console.log('RESP', resp);
+                    window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html";                   
+                });
+               
+   
+            })
+        </script>
     </body>
 </html>
