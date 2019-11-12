@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Home page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -14,9 +14,7 @@
     </head>
     <body>
         <div class="card mx-auto mt-5" style="max-width: 500px;">
-            <div class="card-header">
-                 Login
-            </div>
+            <div class="card-header">Login</div>
              <div class="card-body">
                  <span></span><br>
                  <form>
@@ -27,34 +25,29 @@
                 </form>
                  
                  <script>
+                     // Button form to login
                     $("form" ).submit(function( event ) {
-                        
-                        console.log("HERE SUBMIT");
                         var error = "";
                         var text = $("#text").val();
                         var pwd = $("#pwd").val();
-                        
                         event.preventDefault();
-                        // connection with db properties
-                      if ( text === "admin"  && pwd === "admin") {
-                        // $.session.set("role", "admin");
+                        // check if the user is an admin
+                      if (text === "admin"  && pwd === "admin") {
                         Cookies.set('role', 'admin');
-                        // $.cookie("role", "admin");
                         window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
 
                       }
+                      // check if the user is an employee
                       else if(text === "empl"  && pwd === "empl"){
-                          
-                          // $.session.set("role", "empl");
                           Cookies.set('role', 'employee');
                           window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
-                          
                       }
                       else{
+                          // message error
                           error = "Connection failed! Verify your login/password and try again."
                           if(!text || !pwd)
                               error = "You must enter values in both fields"
-                          $( "span" ).text(error).show();
+                          $("span").text(error).show();
                           event.preventDefault();
                       }
                     });

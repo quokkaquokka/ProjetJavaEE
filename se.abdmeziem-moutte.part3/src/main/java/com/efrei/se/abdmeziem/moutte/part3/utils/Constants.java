@@ -7,10 +7,12 @@ package com.efrei.se.abdmeziem.moutte.part3.utils;
 
 /**
  *
- * @author QuokkaKoala
+ * @author Camille Moutte and Theo Abdmeziem
  */
 public class Constants {
-     public static final String DB_ADMIN = "9KMEBPT3VB";
-     public static final String DB_ADMIN_KEY = "e0f546b1d1689c6b412a40c58d15011c";
+    
+    // Connection to Database 
+    public static final String DB_ADMIN = "9KMEBPT3VB";
+    public static final String DB_ADMIN_KEY = "e0f546b1d1689c6b412a40c58d15011c";
     
 }

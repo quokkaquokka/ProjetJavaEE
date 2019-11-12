@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>Employee Details Page</title>
+        <title>Employees List Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://kit.fontawesome.com/a7b762916d.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+        
     </head>
     <body>
         <script>
+            // display the content of the list of employees
             function setList(data) {
                 data.forEach(function(item) {
                     $("#employees").append('<tr>')
@@ -33,16 +31,34 @@ and open the template in the editor.
             }
         </script>
         <script>
+            // API to get all employees
             $.ajax({
               url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/getAll"
             })
             .done(function( data ) {
-                  var employees = data.hits
-                  console.log('Employees : ' , employees)
-                  setList(employees)
+                var employees = data.hits
+                setList(employees)
             })
         </script>
-        <form  name='myform'>
+        <p id="headerHello" style="display: inline-block;"></p>
+        <script>
+            if(Cookies.get('role') === 'admin')
+               $('#headerHello').html('Hello admin! Your session is active.');
+            else
+            $('#headerHello').html('Hello employee! Your session is active.');
+        </script>
+             <form name='loggout' class="float-right">
+                 <button type="submit" name='logout' class="btn btn-outline-primary float-right mt-n2">
+                    <i class="fas fa-power-off"></i> Log out
+                </button>
+             </form>
+        
+        <div class="card" style="margin-top: 20px; width: 1300px;margin:auto;">
+            <div class="card-header">
+                List of employees		
+            </div>        
+            <div class="card-body">
+        <form  id="myform" name='myform'>
             <table class="table">
                 <thead>
                     <tr>
@@ -63,28 +79,24 @@ and open the template in the editor.
             </table>
             <div class="ml-2" id="divDelete" style="display:inline-block">
                 <script>
-                    console.log('Cookie role', Cookies.get('role') )
+                    // if the role is an admin display the button
                     if(Cookies.get('role') === 'admin')
                         $("#divDelete").append('<button type="button" id="btnDelete" name="delete" class="btn btn-danger">Delete</button>')  
                     $("#btnDelete").click(function(ev){
-                        console.log('DELETE')
-                        var form = document.querySelector("form");
+                        var form = document.querySelector("#myform");
                         var data = new FormData(form);
                         var output = "";
                         for (const entry of data) {
                             output = entry[1];
                         };
-                        console.log("ids ", output);
-                         
+                        // API to delete the user select
                         var request = $.ajax({
                           url: "http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/delete/{"+ output +"}",
                           contentType: "application/json"
                         })
 
                         request.done(function (reponse) {
-                            console.log('Employees : ' , reponse);
                             window.location.reload();
-                              
                         });
                         request.fail(function (jqXHR, textStatus) {
                            console.log(textStatus, jqXHR);
@@ -93,24 +105,22 @@ and open the template in the editor.
                 </script>
                 <button type="submit" id="btnDetails" class="btn btn-info">Détails</button>
                 <script>
+                    // button details, redirect into the other page
                     $("#btnDetails").click(function(ev){
-                        console.log("DETAILSSSS")
-                        var form = document.querySelector("form");
+                        var form = document.querySelector("#myform");
                         var data = new FormData(form);
                         var output = "";
                         for (const entry of data) {
                             output = entry[0] + "=" + entry[1] + "\r";
                         };
-                        console.log("ids = ", output);
-
                         event.preventDefault();
-
-                        window.location.href = "/se.abdmeziem-moutte.part3/detailsemployees.html? " + output
+                        window.location.href = "/se.abdmeziem-moutte.part3/detailsemployees.html?" + output
                       })
                 </script>
-                
+
                 <div class="ml-2" id="divAdd" style="display:inline-block">
                 <script>
+                    // to add user, redirect into other page
                     if(Cookies.get('role') === 'admin')
                         $("#divAdd").append(' <button type="button" id="btnAdd" name="add" class="btn btn-primary">Add</button>')
                      $("#btnAdd").click(function(ev){
@@ -118,5 +128,7 @@ and open the template in the editor.
                      })
                 </script> 
         </form>
+            </div>
+        </div>
     </body>
 </html>

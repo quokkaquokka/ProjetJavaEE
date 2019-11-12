@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Employee Details Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -101,7 +101,6 @@
                     email: $("#email-inp").val()
                 }
                 var myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/update', updtEmployees, function(resp) {
-                    console.log('RESP', resp);
                     window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html";                   
                 });
             })
