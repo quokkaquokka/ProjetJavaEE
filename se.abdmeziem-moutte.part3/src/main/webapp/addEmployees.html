@@ -10,10 +10,10 @@
     </head>
     <body>
     <div class="card" style="width: 800px; margin: auto; margin-top: 30px;">
-        <div class="card-header" id="cardTitle"></div>
+        <div class="card-header" id="cardTitle"> Add Employees of the list</div>
         <div class="card-body">
             <form  name='myform'>
-                <table class="">
+                <table>
                 <tbody>
                     <tr id="name">
                         <td>Name *</td>
@@ -46,13 +46,19 @@
                     <tr id="city">
                         <td>City</td>
                         <td><input type="text" id="city-inp" name="city" value="" class="form-control" required/></td>
-                        <td>email *</td>
+                        <td>Email *</td>
                         <td><input type="text" id="email-inp" name="email" value="" class="form-control" required/></td>
                     </tr>
 
             </tbody>
            </table>    
-                <div id="btn"></div>
+                <div id="btn" style="display:inline-block"></div>
+                <button type="button" id="btnCancel" name="btnCancel" class="btn btn-outline-primary float-right" style="display:inline-block">Cancel</button>
+                    <script>
+                        $("#btnCancel").click(function(ev){
+                            window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
+                        })
+                    </script>
             </form>
         </div>
     </div>

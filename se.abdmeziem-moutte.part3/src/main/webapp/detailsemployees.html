@@ -24,7 +24,7 @@
                 $("#adress").append('<td><input type="text" id="adress-inp" name="adress" value="' + item.adress +'" class="form-control"'+ isAdmin +' required/></td>')
                 $("#postcode").append('<td><input type="text" id="postalcode-inp" name="postalcode" value="' + item.postalcode +'" class="form-control"'+ isAdmin +' required/></td>')
                 $("#city").append('<td>City</td><td><input type="text" id="city-inp" name="city" value="' + item.city +'" class="form-control"'+ isAdmin +' required/></td>')
-                $("#city").append('<td>email *</td><td><input type="text" id="email-inp" name="email" value="' + item.email +'" class="form-control"'+ isAdmin +' required/></td>')           
+                $("#city").append('<td>Email *</td><td><input type="text" id="email-inp" name="email" value="' + item.email +'" class="form-control"'+ isAdmin +' required/></td>')           
             }  
         </script>
         <script>
@@ -77,14 +77,20 @@
 
                 </tbody>
                </table>    
-                    <div id="btn"></div>
+                    <div id="btn" style="display:inline-block"></div>
+                    <button type="button" id="btnCancel" name="btnCancel" class="btn btn-outline-primary float-right">Cancel</button>
+                    <script>
+                        $("#btnCancel").click(function(ev){
+                            window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html"
+                        })
+                    </script>
                 </form>
             </div>
         </div>
        
        <script>
             if(Cookies.get('role') === 'admin')
-                $("#btn").append(' <button type="button" id="btnUpdate" name="btnupdate" class="btn btn-primary">Save</button>')
+                $("#btn").append(' <button type="button" id="btnUpdate" name="btnupdate" class="btn btn-primary" style="display:inline-block">Save</button>')
             $("#btnUpdate").click(function(ev){
                 event.preventDefault();
 

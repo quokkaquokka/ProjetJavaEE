@@ -8,9 +8,10 @@
         <script src="https://kit.fontawesome.com/a7b762916d.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body style="width: 1300px;margin:auto;">
         <script>
             // display the content of the list of employees
             function setList(data) {
@@ -37,29 +38,48 @@
             })
             .done(function( data ) {
                 var employees = data.hits
+                console.log(data.nbHits)
                 setList(employees)
+                if(data.nbHits === 0)
+                    $("#noEmployee").append('<div class="alert alert-danger">The company has no employee</div>');
             })
         </script>
-        <p id="headerHello" style="display: inline-block;"></p>
+        
+        <div class="alert alert-success alert-dismissible fade show m-2">
+            <div id="headerHello"> </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        
         <script>
             if(Cookies.get('role') === 'admin')
                $('#headerHello').html('Hello admin! Your session is active.');
             else
-            $('#headerHello').html('Hello employee! Your session is active.');
+               $('#headerHello').html('Hello employee! Your session is active.');
         </script>
-             <form name='loggout' class="float-right">
-                 <button type="submit" name='logout' class="btn btn-outline-primary float-right mt-n2">
+                 
+        
+        <div class="card" style="margin-top: 20px; ">
+            <div class="card-header">
+                List of employees
+                <button type="submit" id="btnlogout" name='logout' class="btn btn-outline-primary float-right">
                     <i class="fas fa-power-off"></i> Log out
                 </button>
-             </form>
-        
-        <div class="card" style="margin-top: 20px; width: 1300px;margin:auto;">
-            <div class="card-header">
-                List of employees		
+                 <script>
+                     $("#btnlogout").click(function(ev){
+                        event.preventDefault();
+                        Cookies.remove('role')
+                        window.location.href = "/se.abdmeziem-moutte.part3/goodbye.html"
+                    })
+                     
+                 </script>
             </div>        
             <div class="card-body">
+                <div id="noEmployee"></div>
         <form  id="myform" name='myform'>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Details</th>

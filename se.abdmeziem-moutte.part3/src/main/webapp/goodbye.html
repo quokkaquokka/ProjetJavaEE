@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Goodbye Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://kit.fontawesome.com/a7b762916d.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
     </head>
     <body>
         <div>GoodBye !!!</div>
+        <button type="submit" id="btnHome" name='logout' class="btn btn-outline-primary">
+            <i class="fas fa-home"></i> Return Home
+        </button>
+        <script>
+            $("#btnHome").click(function(ev){
+               event.preventDefault();
+               window.location.href = "/se.abdmeziem-moutte.part3/index.html"
+           })
+        </script>
     </body>
 </html>
