@@ -39,7 +39,7 @@ public class ControllerDetailEmployee extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-         if(request.getParameter("update") != null){
+         if(request.getParameter("update") != null || request.getParameter("cancel") != null){
             String idstr = request.getParameter("id");
   
             int id = Integer.parseInt(idstr);
@@ -59,7 +59,8 @@ public class ControllerDetailEmployee extends HttpServlet {
  
             EmployeeModel employeeModel = new EmployeeModel(prop);
             
-            employeeModel.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
+			if(request.getParameter("update") != null)
+				employeeModel.udapteEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
             
             ArrayList<Employee> listEmployees = employeeModel.getEmployees();
             request.setAttribute("klistEmployees", listEmployees);
