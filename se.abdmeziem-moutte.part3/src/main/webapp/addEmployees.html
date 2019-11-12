@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Add Employees Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -9,77 +9,73 @@
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
     </head>
     <body>
- 
-        <div class="card" style="width: 800px; margin: auto; margin-top: 30px;">
-            <div class="card-header" id="cardTitle"></div>
+    <div class="card" style="width: 800px; margin: auto; margin-top: 30px;">
+        <div class="card-header" id="cardTitle"></div>
         <div class="card-body">
-                <form  name='myform'>
-                    <table class="">
-                    <tbody>
-                        <tr id="name">
-                            <td>Name *</td>
-                            <td><input type="text" id="name-inp" name="name" value="" class="form-control" required/></td>
-                        </tr>
-                        <tr id="firstname">
-                            <td>Firstname *</td>
-                            <td><input type="text" id="firstname-inp" name="firstname" value="" class="form-control" required/></td>
-                        </tr>
-                        <tr id="telhome">
-                            <td>Phone Home</td>
-                            <td><input type="text" id="telhome-inp" name="telhome" value="" class="form-control" required/></td>
-                        </tr>
-                        <tr id="telmob">
-                            <td>Phone Mobile</td>
-                            <td><input type="text" id="telmob-inp" name="telmob" value="" class="form-control" required/></td>
-                        </tr>
-                        <tr id="telpro">
-                            <td>Phone Pro</td>
-                            <td><input type="text" id="telpro-inp" name="telpro" value="" class="form-control" required/></td>
-                        </tr>
-                        <tr id="adress">
-                            <td>Address</td>
-                            <td><input type="text" id="adress-inp" name="adress" value="" class="form-control" required/></td>
-                        </tr>
-                        <tr id="postcode">
-                            <td>Postal code</td>
-                            <td><input type="text" id="postalcode-inp" name="postalcode" value="" class="form-control" required/></td>
-                        </tr>
-                        <tr id="city">
-                            <td>City</td>
-                            <td><input type="text" id="city-inp" name="city" value="" class="form-control" required/></td>
-                            <td>email *</td>
-                            <td><input type="text" id="email-inp" name="email" value="" class="form-control" required/></td>
-                        </tr>
+            <form  name='myform'>
+                <table class="">
+                <tbody>
+                    <tr id="name">
+                        <td>Name *</td>
+                        <td><input type="text" id="name-inp" name="name" value="" class="form-control" required/></td>
+                    </tr>
+                    <tr id="firstname">
+                        <td>Firstname *</td>
+                        <td><input type="text" id="firstname-inp" name="firstname" value="" class="form-control" required/></td>
+                    </tr>
+                    <tr id="telhome">
+                        <td>Phone Home</td>
+                        <td><input type="text" id="telhome-inp" name="telhome" value="" class="form-control" required/></td>
+                    </tr>
+                    <tr id="telmob">
+                        <td>Phone Mobile</td>
+                        <td><input type="text" id="telmob-inp" name="telmob" value="" class="form-control" required/></td>
+                    </tr>
+                    <tr id="telpro">
+                        <td>Phone Pro</td>
+                        <td><input type="text" id="telpro-inp" name="telpro" value="" class="form-control" required/></td>
+                    </tr>
+                    <tr id="adress">
+                        <td>Address</td>
+                        <td><input type="text" id="adress-inp" name="adress" value="" class="form-control" required/></td>
+                    </tr>
+                    <tr id="postcode">
+                        <td>Postal code</td>
+                        <td><input type="text" id="postalcode-inp" name="postalcode" value="" class="form-control" required/></td>
+                    </tr>
+                    <tr id="city">
+                        <td>City</td>
+                        <td><input type="text" id="city-inp" name="city" value="" class="form-control" required/></td>
+                        <td>email *</td>
+                        <td><input type="text" id="email-inp" name="email" value="" class="form-control" required/></td>
+                    </tr>
 
-                </tbody>
-               </table>    
-                    <div id="btn"></div>
-                </form>
-            </div>
+            </tbody>
+           </table>    
+                <div id="btn"></div>
+            </form>
         </div>
-       
-       <script>
-            if(Cookies.get('role') === 'admin')
-                $("#btn").append(' <button type="button" id="btnUpdate" name="btnupdate" class="btn btn-primary">Save</button>')
-            $("#btnUpdate").click(function(ev){
-                event.preventDefault();
-
-                const updtEmployees = {
-                    name:  $("#name-inp").val(),
-                    firstname: $("#firstname-inp").val(),
-                    telhome: $("#telhome-inp").val(),
-                    telmob: $("#telmob-inp").val(),
-                    telpro: $("#telpro-inp").val(),
-                    adress: $("#adress-inp").val(),
-                    postalcode: $("#postalcode-inp").val(),
-                    city: $("#city-inp").val(),
-                    email: $("#email-inp").val()
-                }
-                var myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/add', updtEmployees, function(resp) {
-                    console.log('RESP', resp);
-                    window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html";                   
-                });
-            })
+    </div>
+    <script>
+        if(Cookies.get('role') === 'admin')
+            $("#btn").append(' <button type="button" id="btnUpdate" name="btnupdate" class="btn btn-primary">Save</button>')
+        $("#btnUpdate").click(function(ev){
+            event.preventDefault();
+            const updtEmployees = {
+                name:  $("#name-inp").val(),
+                firstname: $("#firstname-inp").val(),
+                telhome: $("#telhome-inp").val(),
+                telmob: $("#telmob-inp").val(),
+                telpro: $("#telpro-inp").val(),
+                adress: $("#adress-inp").val(),
+                postalcode: $("#postalcode-inp").val(),
+                city: $("#city-inp").val(),
+                email: $("#email-inp").val()
+             }
+             var myPost = $.post('http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/add', updtEmployees, function(resp) {
+                 window.location.href = "/se.abdmeziem-moutte.part3/listEmployees.html";                   
+             });
+         })
         </script>
     </body>
 </html>
