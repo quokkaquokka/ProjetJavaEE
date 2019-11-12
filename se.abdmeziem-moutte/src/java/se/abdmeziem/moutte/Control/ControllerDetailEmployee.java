@@ -40,9 +40,9 @@ public class ControllerDetailEmployee extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
          if(request.getParameter("update") != null){
-            String idtt = request.getParameter("id");
+            String idstr = request.getParameter("id");
   
-            int id = 6;
+            int id = Integer.parseInt(idstr);
             String name = request.getParameter("name");
             String firstname = request.getParameter("firstname");
             String phonHome = request.getParameter("phonHome");
