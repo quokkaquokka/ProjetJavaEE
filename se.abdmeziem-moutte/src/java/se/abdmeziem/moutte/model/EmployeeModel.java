@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.abdmeziem.moutte.model;
 
 import java.io.InputStream;
@@ -42,6 +37,10 @@ public class EmployeeModel {
         db = new DBActions(url, user, pwd);
     }
     
+	/**
+	 * get the list of the employees
+	 * @return an ArrayList of all the employees
+	 */
     public ArrayList<Employee> getEmployees() {
         listEmployees = new ArrayList<>();
         rs = db.getResultSet(SEL_EMPLOYEES);
@@ -66,6 +65,11 @@ public class EmployeeModel {
         return listEmployees;
     }
     
+	/**
+	 * get one specific employee by his id
+	 * @param id
+	 * @return the employee with this id
+	 */
     public Employee getEmployee(String id) {
         Employee employeeBean = new Employee();
         String sql = SEL_EMPLOYEE + id;
@@ -120,8 +124,21 @@ public class EmployeeModel {
         System.out.println(sqle.getMessage());
     }
     }
-        
-        public void udapteEmployee(int id, String name, String firstname, String homePhone,
+    
+	/**
+	 * Update the modifications to an employee using his id
+	 * @param id
+	 * @param name
+	 * @param firstname
+	 * @param homePhone
+	 * @param mobPhone
+	 * @param proPhone
+	 * @param address
+	 * @param postcode
+	 * @param city
+	 * @param email 
+	 */
+    public void udapteEmployee(int id, String name, String firstname, String homePhone,
 			String mobPhone, String proPhone, String address, String postcode,
 			String city, String email) {
 		prepStmt = db.getPreparedStatement(UPD_EMPLOYEE);
@@ -135,13 +152,17 @@ public class EmployeeModel {
 			prepStmt.setString(7, postcode);
 			prepStmt.setString(8, city);
 			prepStmt.setString(9, email);
-                        prepStmt.setInt(10, id);
+            prepStmt.setInt(10, id);
             prepStmt.executeUpdate();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
 	}
-		
+	
+	/**
+	 * delete an employee using his id
+	 * @param id 
+	 */
 	public void deleteEmployee(String id) {
 		prepStmt = db.getPreparedStatement(DEL_EMPLOYEE);
 

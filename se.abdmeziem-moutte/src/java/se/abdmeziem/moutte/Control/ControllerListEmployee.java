@@ -47,10 +47,18 @@ public class ControllerListEmployee extends HttpServlet {
 
 		String id = request.getParameter("ids");
 		
+		HttpSession session = request.getSession();
+		
+		if(request.getParameter("logout") != null){
+            session = request.getSession();
+            session.invalidate();
+            request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
+        }
+		
 		// to get the details of the selected employee
         if(request.getParameter("details") != null) {
             String[] ids = request.getParameterValues("ids");
-            HttpSession session=request.getSession();  
+             
             String role = (String) session.getAttribute("krole");  
 
             System.out.println("Role " + role);

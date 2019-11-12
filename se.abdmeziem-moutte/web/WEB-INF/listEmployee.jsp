@@ -11,6 +11,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- Font awesome -->
+        <script src="https://kit.fontawesome.com/a7b762916d.js" crossorigin="anonymous"></script>
 		<!--bootstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -24,78 +26,100 @@
            pageContext.setAttribute("listEmployees", listEmployees);
            if(listEmployees.size() == 0) {
                %>
-               <div class="alert alert-danger">The company are no employee</div>
+               <div class="alert alert-danger alert-dismissible fade show m-2">The company has no employee</div>
                <%
            }
 		   
 		    String role = (String) session.getAttribute("krole");
         %>
 		
-		<form  name='myform' action="ControllerListEmployee">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Details</th>
-						<th>Name</th>
-						<th>Firstname</th>
-						<th>Phone Home</th>
-						<th>Phone Mobile</th>
-						<th>Phone Pro</th>
-						<th>Address</th>
-						<th>Postal code</th>
-						<th>City</th>
-						<th>email</th>
-					</tr>
-				</thead>
-				<tbody>
-				<c:forEach var="employee" items="${listEmployees}">
-					<tr>
-						<td><input type="radio" name="ids" id="ids" value="<c:out value="${employee.id}"> </c:out>" checked></td>
-						<td> <c:out value="${employee.name}"/></td>
-						<td> <c:out value="${employee.firstname}"/></td>
-						<td> <c:out value="${employee.telHome}"/></td>
-						<td> <c:out value="${employee.telMob}"/></td>
-						<td> <c:out value="${employee.telPro}"/></td>
-						<td> <c:out value="${employee.adress}"/></td>
-						<td> <c:out value="${employee.postalCode}"/></td>
-						<td> <c:out value="${employee.city}"/></td>
-						<td> <c:out value="${employee.email}"/></td>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
-			
-			<div class="ml-2">
-			<% if(role.equals("admin") ) { %>
-				<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-			<% } %>
-                            <input type="submit" name="details" class="btn btn-info" value="Details">
-			<% if(role.equals("admin") ) { %>
-                            <button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
-			<% } %>
-			</div>
+		
+		<div class="alert alert-success alert-dismissible fade show m-2">
+			Hello ${krole}! Your session is active.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
         
-        
-		<!-- delete modal -->
-		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="deleteModalTitle">Confirm delete</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-footer">
-						<input type="submit" name="delete" class="btn btn-danger" value="Confirm">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <c:if test="${empty klistEmployees}">
+             <div class="alert alert-danger alert-dismissible fade show m-2">The company has no employee</div>
+        </c:if>
+		<div class="card" style="margin-top: 20px">
+			<form name='loggout' action="ControllerListEmployee">
+				<div class="card-header">
+					List of employees
+					<button type="submit" name='logout' class="btn btn-outline-primary float-right mt-n2">
+						<i class="fas fa-power-off"></i> Log out
+					</button>
+				</div>
+			</form>
+		<div class="card-body">
+			<form name='myform' action="ControllerListEmployee">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Details</th>
+							<th>Name</th>
+							<th>Firstname</th>
+							<th>Phone Home</th>
+							<th>Phone Mobile</th>
+							<th>Phone Pro</th>
+							<th>Address</th>
+							<th>Postal code</th>
+							<th>City</th>
+							<th>email</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="employee" items="${listEmployees}">
+						<tr>
+							<td><input type="radio" name="ids" id="ids" value="<c:out value="${employee.id}"> </c:out>" checked></td>
+							<td> <c:out value="${employee.name}"/></td>
+							<td> <c:out value="${employee.firstname}"/></td>
+							<td> <c:out value="${employee.telHome}"/></td>
+							<td> <c:out value="${employee.telMob}"/></td>
+							<td> <c:out value="${employee.telPro}"/></td>
+							<td> <c:out value="${employee.adress}"/></td>
+							<td> <c:out value="${employee.postalCode}"/></td>
+							<td> <c:out value="${employee.city}"/></td>
+							<td> <c:out value="${employee.email}"/></td>
+						</tr>
+					</c:forEach>
+					</tbody>
+				</table>
+
+				<div class="ml-2">
+				<% if(role.equals("admin") ) { %>
+					<button type="button" name="delete" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+				<% } %>
+								<input type="submit" name="details" class="btn btn-info" value="Details">
+				<% if(role.equals("admin") ) { %>
+								<button type="button" name="add" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
+				<% } %>
+				</div>
+
+
+			<!-- delete modal -->
+			<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="deleteModalTitle">Confirm delete</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" name="delete" class="btn btn-danger" value="Confirm">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			</form>
 		</div>
-		
-		</form>
-		
+		</div>
 		<!-- add modal -->
 		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">

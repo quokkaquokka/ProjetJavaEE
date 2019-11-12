@@ -13,3 +13,4 @@ nbdist/
 
 # End of https://www.gitignore.io/api/netbeans
 /se.abdmeziem-moutte.part3/target/
+/se.abdmeziem-moutte.part2/target/

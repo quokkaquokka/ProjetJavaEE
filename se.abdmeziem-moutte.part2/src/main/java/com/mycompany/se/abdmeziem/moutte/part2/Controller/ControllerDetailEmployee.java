@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.se.abdmeziem.moutte.part2.Controller;
 
 import com.mycompany.se.abdmeziem.moutte.part2.Classes.Employees;
@@ -49,7 +44,7 @@ public class ControllerDetailEmployee extends HttpServlet {
             request.getRequestDispatcher(JSP_GOODBYE_PAGE).forward(request, response);
             return;
         }
-         if(request.getParameter("update") != null){
+         if(request.getParameter("update") != null || request.getParameter("cancel") != null){
             int id = Integer.parseInt(request.getParameter("id"));
   
             String name = request.getParameter("name");
@@ -66,7 +61,8 @@ public class ControllerDetailEmployee extends HttpServlet {
             input = getServletContext().getResourceAsStream("/WEB-INF/db.properties");
             prop.load(input);
             
-            employeesSB.updateEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
+			if(request.getParameter("update") != null)
+				employeesSB.updateEmployee(id, name, firstname, phonHome, phonMob, phonPro, address, postCode, city, email);
 
             ArrayList<Employees> listEmployees = new ArrayList<>();
             listEmployees.addAll(employeesSB.getEmployees());

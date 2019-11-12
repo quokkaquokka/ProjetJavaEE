@@ -8,6 +8,7 @@ public class Constantes {
     public static final String JSP_HOME_PAGE = "WEB-INF/home.jsp";
     public static final String JSP_LIST_EMPLOYEE_PAGE = "WEB-INF/listEmployee.jsp";
     public static final String JSP_DETAIL_EMPLOYEE_PAGE = "WEB-INF/detailsEmployee.jsp";
+	public static final String JSP_GOODBYE_PAGE = "WEB-INF/goodbye.jsp";
     
     public static final String SEL_QUERY = "SELECT * from CREDENTIALS";
     public static final String SEL_EMPLOYEES = "SELECT * from EMPLOYEES";
