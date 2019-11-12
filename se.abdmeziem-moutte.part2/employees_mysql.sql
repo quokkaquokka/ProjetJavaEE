@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
@@ -50,13 +50,10 @@ CREATE TABLE IF NOT EXISTS `employees` (
 INSERT INTO `employees` (`ID`, `NAME`, `FIRSTNAME`, `TELHOME`, `TELMOB`, `TELPRO`, `ADRESS`, `POSTALCODE`, `CITY`, `EMAIL`) VALUES
 (1, 'Simpson', 'Homer', '0123456789', '0612345678', '0698765432', '2 avenue Duff', '92700', 'Colombes', 'hsimpson@gmail.com'),
 (2, 'Simpson', 'Bart', '0145362787', '0645362718', '0611563477', '10 rue des Rebelles', '92270', 'Bois-colombes', 'bsimpson@gmail.com'),
-(3, 'yy', 'Gaston', '0187665987', '0623334256', '0654778654', '65 rue de la Paresse', '92700', 'Colombes', 'glagaffe@yahoo.fr'),
-(4, 'titi', 'Querida', '0187611987', '0783334256', '0658878654', '6 rue de Buenos Aires', '75016', 'Paris', 'qmafalda@hotmail.ar'),
-(7, 'tt', 'uu', 'uu', 'uu', 'uu', 'uu', 'uu', 'uu', 'uu@uu.fr'),
-(10, 'rr', 'rr', 'rr', 'rr', 'rr', 'rr', 'rr', 'rr', 'rr@rr.fr'),
-(11, 'zz', 'zz', 'zz', 'zz', 'zz', 'zz', 'zz', 'zz', 'zz@zz.fe'),
-(12, 'aa', 'zz', 'zz', 'zz', 'zz', 'zz', 'zz', 'zz', 'zz@zz.fe'),
-(14, 'gg', 'aa', 'gg', 'aa', 'gg', 'aa', 'aa', 'aa', 'aa@aa.aa');
+(3, 'Lagaffe', 'Gaston', '0187665987', '0623334256', '0654778654', '65 rue de la Paresse', '92700', 'Colombes', 'glagaffe@yahoo.fr'),
+(4, 'Mafalda', 'Querida', '0187611987', '0783334256', '0658878654', '6 rue de Buenos Aires', '75016', 'Paris', 'qmafalda@hotmail.ar'),
+(7, 'Brown', 'Charlie', '0122456678', '0699854673', '0623445166', '140 avenue Foche', '90000', 'Nanterre', 'cbrown@live.com'),
+(10, 'Woodpecker', 'Woody', '0187384987', '0622494256', '0674178654', '5 bvd des Picoreurs', '21000', 'Dijon', 'woody@mail.co.uk');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
