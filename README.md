@@ -1,7 +1,11 @@
 # Projet JavaEE
 
+
+
 ## Authors
 Camille Moutte and Théo Abdmeziem
+
+## Link to respository github
 
 ## IDE
 NetBeans 8.2
@@ -12,7 +16,7 @@ To start:
 - configure database 2 choice
     - There are **no** database with the configuration (name :JEEPRJ, user: jee, password: jee)
         - create a databe (name :JEEPRJ, user: jee, password: jee)
-        - execute the script in ()
+        - execute the script in (se.abdmezien-moutte/employees_jdbc)
     - There are a databse with the configuration (name :JEEPRJ, user: jee, password: jee)
 - build the project
 - run the project
@@ -31,7 +35,7 @@ To start:
 - start Wamp, or other logiciel to manage the database MySql
     - There are **no** a database (name :JEEPRJ, user: jee, password: jee)
         - create a databe (name :JEEPRJ, user: jee, password: jee)
-        - execute the script in ()
+        - execute the script in (se.abdmeziem-moutte.part2/employees_mysql)
     - There are a databse with the configuration (name :JEEPRJ, user: jee, password: jee)
 - build your project
 - run
@@ -48,8 +52,8 @@ MySql
 Name : **se.abdmeziem-moutte.part3**
 To start:
 - connect to internet to communicate with the database
-- build your project
-- run this
+- build the project
+- run the project
 
 
 ### Environmental specification
