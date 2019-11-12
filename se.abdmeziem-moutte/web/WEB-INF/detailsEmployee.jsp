@@ -93,10 +93,10 @@
                         
                <%
                     if(role.equals("admin")) { %>
-                        <input type='submit' name='update' class="btn btn-primary"> <%
+                        <input type='submit' name='update' value="Save" class="btn btn-primary"> <%
                     }
                 %>
-               
+					<input type='submit'name="cancel" value="Cancel" class="btn btn-outline-primary float-right">
                 </form>
             </div>
         </div>
