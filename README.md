@@ -16,7 +16,7 @@ To start:
 - configure database 2 choice
     - There are **no** database with the configuration (name :JEEPRJ, user: jee, password: jee)
         - create a databe (name :JEEPRJ, user: jee, password: jee)
-        - execute the script in (se.abdmezien-moutte/employees_jdbc)
+        - execute the script in (se.abdmezien-moutte/employees_jdbc.sql)
     - There are a databse with the configuration (name :JEEPRJ, user: jee, password: jee)
 - build the project
 - run the project
@@ -35,7 +35,7 @@ To start:
 - start Wamp, or other logiciel to manage the database MySql
     - There are **no** a database (name :JEEPRJ, user: jee, password: jee)
         - create a databe (name :JEEPRJ, user: jee, password: jee)
-        - execute the script in (se.abdmeziem-moutte.part2/employees_mysql)
+        - execute the script in (se.abdmeziem-moutte.part2/employees_mysql.sql)
     - There are a databse with the configuration (name :JEEPRJ, user: jee, password: jee)
 - build your project
 - run
