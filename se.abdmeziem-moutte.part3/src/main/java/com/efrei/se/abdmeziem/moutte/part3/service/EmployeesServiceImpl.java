@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.efrei.se.abdmeziem.moutte.part3.service;
 
 import com.algolia.search.DefaultSearchClient;
@@ -26,12 +21,19 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 /**
  *
- * @author Camille Moutte
+ * @author Camille Moutte and Theo Abdmeziem
  */
 @Path("/employees")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class EmployeesServiceImpl implements EmployeesService {
+    
+    /**
+    * The addEmployees, connect and add the data in the database 
+    * The function retrieves the JSON, passes it in a map to process the data and adds it to the Employees class
+    * use UUID to generate an ID for the user.
+    * @return Response
+    */
     
     @Override
     @POST
@@ -93,6 +95,11 @@ public class EmployeesServiceImpl implements EmployeesService {
         }
     }
 
+    /**
+    * The getAllEmployees, connect and get the data of all Employees in the database 
+    * The function makes a request without filter because we want all employees
+    * @return Response
+    */
     @Override
     @GET
     @Path("getAll")
@@ -103,7 +110,13 @@ public class EmployeesServiceImpl implements EmployeesService {
         SearchResult<Employees> allEmployees = index.search(new Query());
         return Response.ok(allEmployees).build();
     }
-
+    
+    
+    /**
+    * The deleteEmployees, connect and delete the employees in the database 
+    * The function delete the employees with the id
+    * @return Response
+    */
     @Override
     @GET
     @Path("delete/{objectID}")
@@ -128,6 +141,11 @@ public class EmployeesServiceImpl implements EmployeesService {
         }
     }
 
+    /**
+    * The getEmployees, connect and return the employees in the database 
+    * The function get the employees with the id, there use a filter.
+    * @return Response
+    */
     @Override
     @GET
     @Path("get/{objectID}")
@@ -156,6 +174,11 @@ public class EmployeesServiceImpl implements EmployeesService {
     }    
     
     
+    /**
+    * The updateEmployees, connect and change the data of employees in the database 
+    * The function retrieves the JSON, passes it in a map to process the data and update the Employees in the database
+    * @return Response
+    */
     @Override
     @POST
     @Path("update")
@@ -201,7 +224,7 @@ public class EmployeesServiceImpl implements EmployeesService {
                     break;
                 
                 default:
-                    System.out.println(key + " not found in switch case. noobbb !!!!");
+                    System.out.println(key + " not found in switch case!!!!");
             }
 	}
 
@@ -215,6 +238,4 @@ public class EmployeesServiceImpl implements EmployeesService {
             return Response.ok("kO").build(); 
         }
     }
-
-    
 }
