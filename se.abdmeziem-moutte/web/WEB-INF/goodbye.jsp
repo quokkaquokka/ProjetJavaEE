@@ -9,6 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Font awesome -->
+        <script src="https://kit.fontawesome.com/a7b762916d.js" crossorigin="anonymous"></script>
 		<!--bootstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>JSP Page</title>
@@ -16,7 +18,7 @@
     <body>
         <h1 class="m-2">Goodbye!</h1>
 		<form action="Controller">
-			<input type="submit" name='logout' class="btn btn-primary m-2" value="Back to the login page" />
+			<button type="submit" name='logout' class="btn btn-primary m-2" ><i class="fas fa-home"></i> Return home</button>
 		</form>
     </body>
 </html>
