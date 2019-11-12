@@ -5,7 +5,8 @@
 ## Authors
 Camille Moutte and Théo Abdmeziem
 
-## Link to respository github
+## Link to github respository
+
 
 ## IDE
 NetBeans 8.2
@@ -13,11 +14,11 @@ NetBeans 8.2
 ## Version 1
 Name : **se.abdmezien-moutte**
 To start:
-- configure database 2 choice
-    - There are **no** database with the configuration (name :JEEPRJ, user: jee, password: jee)
-        - create a databe (name :JEEPRJ, user: jee, password: jee)
+- configure Java database, 2 choices
+    - There is **no** database with the configuration (name :JEEPRJ, user: jee, password: jee)
+        - create a database (name :JEEPRJ, user: jee, password: jee)
         - execute the script in (se.abdmezien-moutte/employees_jdbc.sql)
-    - There are a databse with the configuration (name :JEEPRJ, user: jee, password: jee)
+    - There is a database with the configuration (name :JEEPRJ, user: jee, password: jee)
 - build the project
 - run the project
 
@@ -32,11 +33,11 @@ JDBC
 ## Version 2
 Name : **se.abdmeziem-moutte.part2**
 To start:
-- start Wamp, or other logiciel to manage the database MySql
-    - There are **no** a database (name :JEEPRJ, user: jee, password: jee)
-        - create a databe (name :JEEPRJ, user: jee, password: jee)
+- start Wamp, or other application to manage MySql databases
+    - If there is **no** database (name :JEEPRJ, user: jee, password: jee)
+        - create a database (name :JEEPRJ, user: jee, password: jee)
         - execute the script in (se.abdmeziem-moutte.part2/employees_mysql.sql)
-    - There are a databse with the configuration (name :JEEPRJ, user: jee, password: jee)
+    - If there is a database with the configuration (name :JEEPRJ, user: jee, password: jee)
 - build your project
 - run
 
@@ -51,7 +52,7 @@ MySql
 ## Version 3
 Name : **se.abdmeziem-moutte.part3**
 To start:
-- connect to internet to communicate with the database
+- connect to the internet to communicate with the database
 - build the project
 - run the project
 
@@ -70,7 +71,7 @@ Algolia, a databse in NOSQL
 
 ### Testing
 For example to test API directly:
-run the project, open your browser and copy/paste the link 
+run the project, open your browser and copy/paste the link
 
 **GET ALL EMPLOYEES**
 http://localhost:8080/se.abdmeziem-moutte.part3/api/v1/employees/getAll
